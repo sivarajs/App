@@ -1,0 +1,78 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0" metadata-complete="false">
+
+	<description>NS Application</description>
+	<display-name>NS Application</display-name>
+
+	<servlet>
+		<description>Bootstrap Servlet</description>
+		<servlet-name>BootstrapServlet</servlet-name>
+		<servlet-class>meru.app.server.servlet.BootstrapServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>XHTML Handler</description>
+		<servlet-name>XHtmlRenderer</servlet-name>
+		<servlet-class>meru.app.binding.http.servlet.XHtmlServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>Business Objects Servlet</description>
+		<servlet-name>BusinessObjectsServlet</servlet-name>
+		<servlet-class>meru.app.binding.http.servlet.BusinessObjectServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>Category Servlet</description>
+		<servlet-name>CategoryServlet</servlet-name>
+		<servlet-class>meru.ecom.servlet.CategoryServlet</servlet-class>
+		<init-param>
+			<param-name>context-root</param-name>
+			<param-value>/store</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<description>Product Servlet</description>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>meru.ecom.servlet.ProductServlet</servlet-class>
+		<init-param>
+			<param-name>context-root</param-name>
+			<param-value>/store</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XHtmlRenderer</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BusinessObjectsServlet</servlet-name>
+		<url-pattern>/e/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CategoryServlet</servlet-name>
+		<url-pattern>/category/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product/*</url-pattern>
+	</servlet-mapping>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/ecomDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<!-- <error-page> <exception-type>java.lang.Exception</exception-type> <location>/error.xhtml</location> </error-page> -->
+
+</web-app>	
+	

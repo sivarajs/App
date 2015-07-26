@@ -1,0 +1,25 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement.interview" xmlns="i2par.campus.placement.interview" xmlns:r="app.domain">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   
+   <xsd:include schemaLocation="EmployerInterview.xsd"/>
+   <xsd:include schemaLocation="StudentInterview.xsd"/>	
+   	
+	<xsd:complexType name="StudentInterviewResult">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+					<xsd:element ref="studentInterview" />
+					<xsd:element ref="employerInterview"/>
+					<xsd:element ref="selectionState" minOccurs="0"/>
+				    <xsd:element name="evaluatedBy" type="xsd:string" minOccurs="0" />
+				    <xsd:element name="remarks" type="xsd:string" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+</xsd:schema>

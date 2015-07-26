@@ -1,0 +1,343 @@
+<div xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block" id="student">
+  
+   <h1>Placement Event</h1>
+  
+   <c:variable name="studentId" value="#{session.E}"/>
+   <c:entity name="Student" entityId="#{studentId}"/>
+   <c:entity name="Campus" entityId="#{student.campusId}"/>
+   <c:entity name="CampusProgram" filter="campusId=#{student.campusId}&amp;program.id=12"/>
+   <c:entity name="PlacementRegistration" entityId="#{student.studentRegistration.placementRegistrationId}"/>
+  
+  <div style="padding:10px;width:300px;float:left;position:relative">
+  		
+  		<div>
+			<div>
+			  <c:entity name="StudentImage" entityId="#{studentId}"/>	
+			  <c:graphicImage value='#{studentImage.image}' id="stuImg"/>
+			</div>
+			<div style="position:relative">
+				<c:entityForm entity="StudentImage" id="imageForm" submittable="false">
+					<c:inputHidden value="#{studentImage.studentId}" default="#{studentId}"/>
+					<a href='javascript:;'>Change Picture
+						<c:inputFile value="#{studentImage.image}" style="position:absolute;left:-70px;opacity:0" onchange="changeImage()"/>
+					</a>		
+				</c:entityForm>	
+				
+				<p class='status'></p>
+			</div>
+			
+		</div>
+		
+		<b:if condition="#{student.studentRegistration.state.value} == New || #{student.studentRegistration.state.value} == Extended || #{student.studentRegistration.state.value} == Open">
+		
+			<c:entityForm entity="Student" submitButtonStyle="text-align:right;bckground:none;" id="stuForm">
+				<c:panelGroup title="Profile">
+					<c:panelGrid cols="1" labelStyle="width:105px">
+						<c:outputText label="I2Par Id" value="#{student.iparId}" />
+						<c:outputText label="Id" value="#{student.code}" />
+						<c:outputText label="Name" value="#{student.name}" />
+						<c:outputText label="Email" value="#{student.email}" />
+						<c:outputText label="Registration State" value="#{student.studentRegistration.state.value}" />
+					</c:panelGrid>
+					
+					    <c:inputHidden value="#{student.studentRegistration.state.id}"/>
+						<c:inputHidden value="#{student.id}"/>
+						<c:inputHidden value="#{student.name}"/>
+						<c:inputHidden value="#{student.code}"/>
+						<c:inputHidden value="#{student.campusId}"/>
+						<c:inputHidden value="#{student.email}"/>
+						<c:inputHidden value="#{student.iparId}"/>
+						<c:inputHidden value="#{student.studentRegistration.id}"/>
+						<c:inputHidden value="#{student.studentRegistration.placementRegistrationId}"/>
+						<c:inputHidden value="#{student.course1.id}" id="course1Id"/>
+						<c:inputHidden value="#{student.course2.id}" id="course2Id"/>
+						<c:panelGrid labelStyle="width:105px">
+							<c:inputDate label="Birth Date" value="#{student.birthDate}" style="width:150px"/>
+							<c:selectOneEntityMenu label="Sex" value="#{student.sex.value}" entity="PropertyGroup" filter="name=sex" req="false" style="width:150px"/>
+							<c:inputInt label="Weight (kg)" value="#{student.weight}" style="width:150px"/>
+							<c:inputInt label="Height (cm)" value="#{student.height}" style="width:150px"/>
+							
+						</c:panelGrid>
+				</c:panelGroup>
+				<c:panelGroup title="Degree">			
+					<b:if condition="#{placementRegistration.studentCgpa} == Y">
+					
+						<c:panelGrid labelStyle="width:105px">
+							<c:selectOneEntityPopup label="Discipline1" value="#{student.course1.degree.value} - #{student.course1.discipline.value}" selectedEntity="course1" id="degree1" req="false"  style="width:150px">
+					           <c:popup title="Select Discipline">
+					        	 <c:entityTable entity="Course" filter="campusId=#{campus.id}" lifeCycle="none" var="course1">
+								    <c:columns>
+								       <c:column label="Degree" value="#{course.degree.value}" width="250"/>
+								       <c:column label="Discipline" value="#{course.discipline.value}" width="250"/>
+								       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+								       <c:column label="Duration" value="#{course.duration}" width="100"/>
+								       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+								    </c:columns>
+								   </c:entityTable> 
+								</c:popup>    
+					        </c:selectOneEntityPopup>
+					        
+					        <b:if condition="#{campusProgram} != null">
+					        
+						        <c:selectOneEntityPopup label="Discipline2" value="#{student.course2.degree.value} - #{student.course2.discipline.value}" selectedEntity="course2"  id="degree2" req="false" style="width:150px">
+						           <c:popup title="Select Discipline">
+						        	 <c:entityTable entity="Course" filter="campusId=#{campus.id}" lifeCycle="none" var="course2">
+									    <c:columns>
+									       <c:column label="Degree" value="#{course.degree.value}" width="250"/>
+									       <c:column label="Discipline" value="#{course.discipline.value}" width="250"/>
+									       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+									       <c:column label="Duration" value="#{course.duration}" width="100"/>
+									       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+									    </c:columns>
+									   </c:entityTable> 
+									</c:popup>    
+						        </c:selectOneEntityPopup>
+				        	</b:if>
+					        <c:inputDecimal label="CGPA/Percentage" value="#{student.score}" id="stuCgpa" style="width:150px"/>
+						</c:panelGrid>
+					
+						<b:else>
+						    <c:panelGrid> 
+							 	<c:outputText label="Degree1" value="#{student.course1.degree.value}"/>
+								<c:outputText label="Degree2" value="#{student.course2.degree.value}"/>
+								<c:outputText label="CGPA/Percentage" value="#{student.score}" />
+							</c:panelGrid>
+						</b:else>
+					</b:if>
+				</c:panelGroup>
+				<c:panelGroup title="Internship">	
+						<c:panelGrid labelStyle="width:105px">
+							<c:inputInt label="Duration" value="#{student.internshipDuration}" style="width:150px"/>
+							<c:selectOneEntityMenu label="Time Unit" value="#{student.internshipUnit.value}" entity="PropertyGroup" filter="name=time-unit" req="false" style="width:150px"/>
+							<c:inputText label="Company" value="#{student.internshipCompany}" style="width:150px"/>
+							<c:inputTextarea label="Details" value="#{student.internshipDetails}" style="width:150px"/>
+						</c:panelGrid>
+				</c:panelGroup>		
+			
+			</c:entityForm>
+			
+			<b:else>
+				<c:panelGroup title="Profile">
+					<c:panelGrid cols="1">
+						<c:outputText label="I2Par Id" value="#{student.iparId}" />
+						<c:outputText label="Id" value="#{student.code}" />
+						<c:outputText label="Name" value="#{student.name}" />
+						<c:outputText label="Email" value="#{student.email}" />
+						<c:outputText label="Birth Date" value="#{student.birthDate}" />
+						<c:outputText label="Sex" value="#{student.sex.value}" />
+						<c:outputText label="Weight ((kg))" value="#{student.weight}" />
+						<c:outputText label="Height (cm)" value="#{student.height}" />
+					</c:panelGrid>	
+				</c:panelGroup>	
+				<c:panelGroup title="Degree">		
+					<c:panelGrid> 
+					 	<c:outputText label="Degree1" value="#{student.course1.degree.value}"/>
+					 	<b:if condition="#{campusProgram} != null">
+						    <c:outputText label="Degree2" value="#{student.course2.degree.value}"/>
+						</b:if>
+						<c:outputText label="CGPA/Percentage" value="#{student.score}" />
+					</c:panelGrid>
+				</c:panelGroup>
+				
+				<c:panelGroup title="Internship">	
+						<c:panelGrid>
+							<c:outputText label="Duration" value="#{student.internshipDuration} #{student.internshipUnit.value}"/>
+							<c:outputText label="Company" value="#{student.internshipCompany}"/>
+							<c:outputText label="Details" value="#{student.internshipDetails}"/>
+						</c:panelGrid>
+				</c:panelGroup>		
+					
+			</b:else>
+			
+		</b:if>
+  		
+  	</div>
+  	<div style="padding:10px;margin-left:320px;position:relative;border-left:1px #efefef solid;">	
+  		
+  		<div>
+  		
+	  		<b>Welcome to #{campus.name} Placement Registration for
+				#{placementRegistration.placement.rolloutStart} to
+				#{placementRegistration.placement.rolloutEnd} period, which is commencing on
+				#{placementRegistration.placement.commencement} for Class
+				#{placementRegistration.placement.year}</b>
+	
+			<div style="margin-top: 10px"><b>Clause:</b> A student can
+				appear for placements till he gets <b>#{placementRegistration.maxOffers}</b> Offers.
+			</div>
+	
+			<div style="margin-top: 10px">This registration closes on
+				<b>#{placementRegistration.dueDate}</b> and is valid between
+				<b>#{placementRegistration.placement.rolloutStart} and
+				#{placementRegistration.placement.rolloutEnd}</b>
+			</div>
+		</div>
+		<hr/>
+		<div>
+			<div><b>Note:</b> Please Enter information accurately. DataOnce Registered cannot be altered.</div>
+		</div>
+		<hr/>
+	    <span>Current State is <b id='regState'>"#{student.studentRegistration.state.value}"</b></span>
+		<div style="margin:10px;" id="regButtons">
+		     <b:if condition="#{student.studentRegistration.state.value} != Registered &amp;&amp; #{student.studentRegistration.state.value} != Rejected">
+				<c:commandButton value="Register" onclick="register(#{student.id})"/>
+				<c:commandButton value="Reject" onclick="reject(this)"/>
+			 </b:if>	
+		</div>		
+		
+		<c:entityTable title="Offers (if any)" entity="Offer" filter="studentId=#{studentId}" style="margin-top:10px">
+			<c:popup title="Offer" binds="offer" style="width:500px">
+				<c:entityForm entity="Offer">
+			    	<c:inputHidden value="#{offer.studentId}" default="#{studentId}"/>
+					<c:panelGrid columns="1">
+						<c:inputText label="Employer" value="#{offer.employer}" />
+						<c:inputDate label="Date" value="#{offer.date}" />
+						<c:inputDecimal label="Pay (in lacs)" value="#{offer.pay}" />
+					</c:panelGrid>	
+				</c:entityForm>	
+			</c:popup>
+		
+			<c:columns>
+				<c:column label="Employer" value="#{offer.employer}" width="250"/>
+				<c:column label="Date" value="#{offer.date}" width="100"/>
+				<c:column label="Pay (in lacs)" value="#{offer.pay}"/>
+			</c:columns>		       
+		</c:entityTable> 
+		
+		<c:entityTable title="Education Background" entity="Education" filter="studentId=#{studentId}" style="margin-top:10px">
+			<c:popup title="Education" binds="education" style="width:500px">
+				<c:entityForm entity="Education">
+			    	<c:inputHidden value="#{education.studentId}" default="#{studentId}"/>
+					<c:panelGrid columns="1">
+						<c:selectOneEntityMenu label="Degree" value="#{education.degree.value}" entity="PropertyGroup" filter="name=degree"/>
+						<c:inputInt label="Year" value="#{education.year}" />
+						<c:inputText label="University/Board" value="#{education.board}" />
+						<c:inputText label="Institute" value="#{education.institute}" />
+						<c:inputDecimal label="Evaluation Score (% or CGPA)" value="#{education.percentage}" />
+					</c:panelGrid>	
+				</c:entityForm>	
+			</c:popup>				
+			<c:columns>
+				<c:column label="Degree" value="#{education.degree.value}" width="100"/>
+				<c:column label="Year" value="#{education.year}" width="100"/>
+				<c:column label="University/Board" value="#{education.board}" width="150"/>
+				<c:column label="Institute" value="#{education.institute}" width="100"/>
+				<c:column label="Evaluation Score" value="#{education.percentage}"/>
+			</c:columns>		       
+		</c:entityTable> 
+		
+		<c:entityTable title="Electives" entity="Elective" filter="studentId=#{studentId}" style="margin-top:10px">
+			<c:popup title="Elective" binds="elective" style="width:500px">
+				<c:entityForm entity="Elective">
+			    	<c:inputHidden value="#{elective.studentId}" default="#{studentId}"/>
+			    	<c:inputHidden value="#{elective.course.id}" id="courseId"/>
+					<c:panelGrid columns="1">
+					
+						<c:selectOneEntityPopup label="Degree" value="#{elective.course.degree.value} - #{elective.course.discipline.value}" selectedEntity="course" req="false">
+				           <c:popup title="Select Discipline">
+				        	 <c:entityTable entity="Course" filter="campusId=#{campus.id}" var="course" lifeCycle="none" id="electiveCourseTable">
+							    <c:columns>
+							       <c:column label="Degree" value="#{course.degree.value}" width="100"/>
+							       <c:column label="Discipline" value="#{course.discipline.value}" width="200"/>
+							       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+							       <c:column label="Duration" value="#{course.duration}" width="100"/>
+							       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+							    </c:columns>
+							   </c:entityTable> 
+							</c:popup>    
+				        </c:selectOneEntityPopup>
+						<c:inputText label="Subject/Title" value="#{elective.subject}" />
+					</c:panelGrid>	
+				</c:entityForm>	
+			</c:popup>
+				
+			<c:columns>
+				<c:column label="Degree" value="#{elective.course.degree.value} - #{elective.course.discipline.value}" width="250"/>
+				<c:column label="Subject" value="#{elective.subject}" width="150"/>
+			</c:columns>		       
+		</c:entityTable> 
+		
+		<c:entityTable title="Awards" entity="Award" filter="studentId=#{studentId}" style="margin-top:10px">
+			<c:popup title="Award" binds="award" style="width:500px">
+				<c:entityForm entity="Award">
+			    	<c:inputHidden value="#{award.studentId}" default="#{studentId}"/>
+					<c:panelGrid columns="1">
+						<c:inputInt label="Year" value="#{award.year}" />
+						<c:inputText label="Description" value="#{award.detail}" />
+					</c:panelGrid>	
+				</c:entityForm>	
+			</c:popup>
+				
+			<c:columns>
+				<c:column label="Year" value="#{award.year}" width="100"/>
+				<c:column label="Description" value="#{award.detail}" width="150"/>
+			</c:columns>		       
+		</c:entityTable> 
+		
+  	</div>
+  	<div class="clr"/>
+  	
+  	<c:popup title="Reason for rejection" id="rejPopup">
+	    <div style="padding:10px">
+	 		<c:inputTextarea name="reason" id="rejReason"/>
+	 		
+	 		<div style="text-align:right;margin:10px">
+	 			<c:commandButton value="Reject" onclick="rejectReg(#{studentId})"/>
+	 		</div>
+	 		
+	 	</div>	
+	 </c:popup>
+  	
+  	<script type="text/javascript">
+  	
+  		function changeImage() {
+  			var id = variable.getEntityVarId("StudentImage");
+  			
+  			eventQueue.subscribe(EventName.saved(id),
+  					new EventSubscriber(id + "-var",
+  							function(event) {
+  						       var valid = sys.isValid(event.data);
+  						       if (valid) {
+  						    	 document.getElementById('stuImg').src = event.data['studentImage']['image'];
+  						       }
+  							}, this));	
+  			
+  			document.getElementById('imageForm').entityForm.submit();
+  		}
+  		
+  		function register(stuId) {
+  			ui.action.act("Student", stuId, "register");
+  			disableForm("Registered");
+  		}
+  		
+		function reject(nd) {
+			ui.popup.showById("rejPopup",nd);
+		}
+		
+		function rejectReg(stuId) {
+			
+			var v = document.getElementById("rejReason").value;
+			if (sys.isValid(v)) 
+				v = "reason="+v;
+			
+			ui.action.act("Student", stuId, "reject&amp;"+v);
+			ui.popup.hideById("rejPopup");
+			disableForm("Rejected");
+		}
+		
+		function disableForm(state) {
+			document.getElementById("stuForm").uiComp.disableInputs();
+			$("#regState").html(state);
+			$("#regButtons").css("display","none");
+			$(".toolbar",".dataTable").hide();
+		}
+		
+		(function() {
+			var s = $("#regState").html();
+			if (s == '"Registered"' || s == '"Rejected"')
+				$(".toolbar",".dataTable").hide();
+		})();
+  		
+  	</script>
+  	
+</div>

@@ -1,0 +1,10 @@
+ <div xmlns:c="nandhi.app.ui.component" class="buyDiv"> 
+       <div class="removeCart buy" title="Remove From Bag"/>
+       <div style="float:left">
+        <input name="quantity" class="qty"/>
+        <span style="display:none" class="buyProdId">#{productLineItem.id}</span>
+        <span style="display:none" class="buyProdName">#{productLineItem.product.name} #{productLineItem.quantity} #{productLineItem.unitOfMeasure.name}</span>
+       </div> 
+       <div class="addCart buy" title="Add To Bag"/>
+        <div class="clr"/>
+  </div>   

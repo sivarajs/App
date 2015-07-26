@@ -1,0 +1,33 @@
+<c:template src="/WEB-INF/app/template/Customer.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="page.title" value="Fresh and quality products at the best price" />
+
+	<c:parameter name="content">
+		<h2>Addresses</h2>
+		<c:entity name="BusinessPartner" filter="userId=#{session.E}" />
+
+		<c:entityTable entity="BusinessPartnerAddress" filter="businessPartnerId=#{businessPartner.id}" contentStyle="max-height:10000px;">
+			<c:columns>
+				<c:column label="Address" value="#{businessPartnerAddress.address.address}" width="250" />
+				<c:column label="Area" value="#{businessPartnerAddress.address.area.name}" width="200" />
+				<c:column label="City" value="#{businessPartnerAddress.address.city.name}" />
+			</c:columns>
+		</c:entityTable>
+
+		<c:panelGroup binds="businessPartnerAddress">
+			<c:entityForm entity="BusinessPartner" style="background-color:#ffffff">
+				<c:inputHidden value="#{businessPartnerAddress.businessPartnerId}" default="#{businessPartner.id}" />
+				<c:inputHidden value="#{businessPartnerAddress.address.id}" />
+				<c:panelGrid>
+					<c:inputTextarea label="Address" value="#{businessPartnerAddress.address.address}" />
+					<c:inputText label="Landmark" value="#{businessPartnerAddress.address.landmark}" />
+					<c:selectOneEntityMenu value="#{businessPartnerAddress.address.area.name}" label="Area" entity="CityArea" filter="cityId=1&amp;orderBy=name" />
+					<c:selectOneEntityMenu value="#{businessPartnerAddress.address.city.name}" label="City" entity="City" filter="countryId=1&amp;stateId=18" default="1" />
+					<c:selectOneEntityMenu value="#{businessPartnerAddress.address.state.name}" label="State" entity="State" filter="countryId=1" default="18" />
+					<c:selectOneEntityMenu value="#{businessPartnerAddress.address.country.name}" label="Country" entity="Country" default="1" />
+					<c:inputText label="Pin" value="#{businessPartnerAddress.address.pinCode}" length="6" regExp="^[0-9]+$" />
+				</c:panelGrid>
+			</c:entityForm>
+		</c:panelGroup>
+	</c:parameter>
+</c:template>

@@ -1,0 +1,37 @@
+<test-suite relativeUrl="campus" name="T5_CreateRFPTest">
+   
+    <test-case name="selectRFPTreeItem">
+        <!-- Select the Module -->
+        <input type="click" xpath=".//*[@id='header']/div[1]/span[2]" /> 
+		<input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[4]/div/div[1]"/>
+		<test name="assertTitle">
+		   <assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">RFP</assert>
+		</test>
+	</test-case>
+ 	<test-case name="newRFP">
+	    <input type="click" xpath=".//*[@id='rfpTable']/div[1]/div[1]/div[1]" />
+ 	    <input type="click" xpath=".//*[@id='rfpNewPopup']/div[2]/div/div/div/a[1]"/>
+  	    <input type="click" xpath=".//*[@id='RfpForm']/div[1]/div[1]/div[2]/input"/>
+        <input type="click" xpath=".//*[@id='placementRegistrationTable']/div[2]/table/tbody/tr"/>
+	    <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[2]/div[2]/input">31-10-2015</input>
+	    <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[3]/div[2]/select">121</input>
+        <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[4]/div[2]/select">61</input>
+        <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[5]/div[2]/input">10</input>
+        <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[6]/div[2]/input">1000</input>
+        <input type="text" xpath=".//*[@id='RfpForm']/div[1]/div[7]/div[2]/input">999</input>
+	    
+	    <input type="click" xpath=".//*[@id='rfpSubmit']" />
+ 	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='RfpForm']/div[1]/div[1]/div[2]/input">BITSPRG0000000001</assert>
+	       <assert entity="Text" operation="Equals" xpath=".//*[@id='rfpTable']/div[4]/table/tbody/tr/td[1]/div">BITSPRF0000000001</assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='rfpTable']/div[4]/table/tbody/tr/td[2]/div">2015</assert> 
+	    </test>
+	</test-case>
+    
+    <test-case name="dispatchRFP">
+       <input type="click" xpath=".//*[@id='rfpTable']/div[1]/div[1]/div[4]/span" />
+       <input type="text" xpath=".//*[@id='empEmails']">sivarajs@gmail.com,sivarajsk@yahoo.com</input>
+       <input type="click" xpath=".//*[@id='rfpDispatchSubmit']"/>
+    </test-case>   
+
+</test-suite>

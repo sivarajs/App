@@ -1,0 +1,40 @@
+
+<div xmlns:c="app.ui.faces.component">
+	<h2>Register</h2>
+	<div id="err" style="color: red"></div>
+	<form method="post" action="/account/a/register">
+		<c:inputHidden name="appId" value="#{query.a}" />
+        <c:inputHidden name="roleId" value="#{query.r}" />
+		<div>
+			<label for="em">Email</label> <input id="em" name="email" type="text" />
+		</div>
+<!-- 		<div>
+			<label for="mo">Mobile</label> <input id="mo" name="mobile" type="text" />
+		</div>
+ -->		<div>
+			<label for="pw">Password</label> <input type="password" id="pw" name="password" />
+		</div>
+		<div>
+			<label for="rpw">Repeat Password</label> <input type="password" id="rpw" name="rpassword" />
+		</div>
+
+		<div>
+			<input type="submit" value="Register" class="formSubmitInput" />
+		</div>
+	</form>
+
+	<div class="foot">
+		<a href="../login?a=#{query.a}">Already Registered User?</a>
+	</div>
+	
+	<script type="text/javascript">
+		(function() {
+
+			if (window.location.href.indexOf('&amp;i') != -1)
+				document.getElementById("err").innerHTML = unescape(window.location.href.substring(window.location.href.indexOf('&amp;i')+1));
+
+		})();
+	</script>
+
+</div>
+

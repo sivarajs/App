@@ -1,0 +1,30 @@
+<c:tabs xmlns:c="app.ui.faces.component">
+
+	  <c:tab title="Information">
+	  
+		<c:entityForm entity="PlacementSchedule">
+			<c:inputHidden value="#{placementSchedule.documentId}"/>
+			<c:inputHidden value="#{placementSchedule.campus.id}" default="#{query.campusId}"/>
+			<c:inputHidden value="#{placementSchedule.state.id}" default="701"/>
+			<c:inputHidden value="#{placementSchedule.mode}" default="Reg"/>
+			<c:inputHidden value="#{placementSchedule.placementRegistration.id}" id="placementRegistrationId"/>
+			<c:panelGrid>
+			
+				<c:selectOneEntityPopup label="Placement Registration" value="#{placementSchedule.placementRegistration.documentId}">
+		           <c:popup title="Select Placement Registration">
+		        	 <c:entityTable entity="PlacementRegistration" filter="campusId=#{query.campusId}" lifeCycle="none">
+					    <c:columns>
+					       <c:column label="Document Id" value="#{placementRegistration.documentId}" width="150"/>	
+					       <c:column label="Year" value="#{placementRegistration.placement.year}" width="100"/>
+					       <c:column label="Academic Start" value="#{placementRegistration.placement.academicStart}" width="150"/>
+					       <c:column label="Academic End" value="#{placementRegistration.placement.academicEnd}" width="150"/>
+					       <c:column label="Commencement" value="#{placementRegistration.placement.commencement}" width="150"/>
+					    </c:columns>
+					   </c:entityTable>
+					</c:popup>    
+		        </c:selectOneEntityPopup>
+		      	<c:inputDate label="Due Date" value="#{placementSchedule.dueDate}"/>
+			</c:panelGrid>
+		</c:entityForm>
+	 </c:tab>
+</c:tabs>	 	

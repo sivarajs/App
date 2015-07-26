@@ -1,0 +1,36 @@
+<test-suite relativeUrl="campus" name="T3_CreateCourseCurriculumsTest">
+
+    <test-case name="selectCourseCurriculumTreeItem">
+		<!-- select Setup-->
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[1]" />
+		
+	    <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[3]/div/div[1]" /> 
+		<test name="assertTitle">
+			<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">COURSE CURRICULUM</assert>
+		</test>
+	</test-case>
+	<test-case name="newCourseCurriculum1">
+	    <input type="click" xpath=".//*[@id='courseTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[1]/div[2]/select">351</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[2]/div[2]/select">371</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[3]/div[2]/select">31</input>
+	    <input type="text" xpath="//*[@id='CourseForm']/div[1]/div[4]/div[2]/input">4</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[5]/div[2]/select">94</input>
+	    <input type="click" xpath=".//*[@id='courseSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='CourseForm']/div[1]/div[4]/div[2]/input" comments="verify duration">4</assert>
+	    </test> 
+	</test-case>
+	<test-case name="newCourseCurriculum2">
+	    <input type="click" xpath=".//*[@id='courseTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[1]/div[2]/select">351</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[2]/div[2]/select">372</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[3]/div[2]/select">31</input>
+	    <input type="text" xpath="//*[@id='CourseForm']/div[1]/div[4]/div[2]/input">4</input>
+	    <input type="text" xpath=".//*[@id='CourseForm']/div[1]/div[5]/div[2]/select">94</input>
+	    <input type="click" xpath=".//*[@id='courseSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='CourseForm']/div[1]/div[4]/div[2]/input" comments="verify duration">4</assert>
+	    </test> 
+	</test-case>
+</test-suite>

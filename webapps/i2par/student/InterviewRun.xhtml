@@ -1,0 +1,34 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Event</h1>
+   
+   <c:variable name="studentId" value="#{session.E}"/>
+   <c:entity name="Student" entityId="#{studentId}"/>
+   
+   
+   <c:entityTable entity="EmployerSchedule" filter="campusId=#{student.campusId}&amp;" lifeCycle="none">
+		 	<c:columns>
+		       <c:column label="Employer" value="#{employerSchedule.employer.name}" width="250"/>
+		    </c:columns>
+	</c:entityTable>
+	
+	<c:entityTable  title="Interview Result" entity="StudentInterviewResult" filter="studentInterview.student.id=#{student.id}&amp;studentInterview.employerId=#{employerSchedule.employer.id}" lifeCycle="none" autoLoad="false" binds="employerSchedule"> 
+
+		<c:columns>
+		       <c:column label="Student Id" value="#{studentInterviewResult.studentInterview.student.code}" width="100"/>
+		       <c:column label="Student Name" value="#{studentInterviewResult.studentInterview.student.name}" width="200"/>
+		       <c:column label="Description" value="#{studentInterviewResult.employerInterview.description}" width="200"/>
+		       <c:column label="Result" value="#{studentInterviewResult.selectionState.value}"/>
+		</c:columns>      
+	</c:entityTable>
+
+
+    <script type="text/javascript">
+	<![CDATA[	
+	         var student = {};
+	         student["id"] = #{studentId};
+	         varHeap.set("student",student);
+	]]> 
+	</script>
+	         
+</div>   

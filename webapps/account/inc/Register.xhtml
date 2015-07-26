@@ -1,0 +1,28 @@
+  <div xmlns:c="app.ui.faces.component">
+    <c:message id="registerMsg" type="error" class="err"/>
+    
+    <form action="/account/a/register" method="POST" target="reg-frame">
+       <c:inputHidden name="appId" value="#{query.a}"/>
+       <c:inputHidden name="roleId" value="#{query.r}"/>
+       <c:panelGrid>
+          <c:inputText name="email" label="Email" id="emailReg"/>
+          <!-- <c:inputText name="mobile" label="Mobile"/> -->
+          <c:inputSecret name="password" label="Password"/>
+          <c:inputSecret name="rpassword" label="Repeat Password"/>
+       </c:panelGrid>
+            
+       <div style="text-align:center">
+         <c:commandButton value="Register"/>
+       </div>  
+    
+    </form>
+    <iframe name="reg-frame" width="0" height="0" style="display:none;"/>
+    
+    <script type="text/javascript">
+      (function() {
+        document.getElementById("emailReg").focus();
+      })();
+      </script>
+    
+  </div>
+  

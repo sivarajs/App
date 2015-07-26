@@ -1,0 +1,64 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Employer</h1>
+   
+   <c:variable name="campusId" value="#{session.EID}"/>
+   
+   <c:entityTable entity="CampusEmployer" filter="campusId=#{campusId}" rowSelection="multiple">
+    <c:columns>
+       <c:column label="Name" value="#{campusEmployer.name}" width="300"/>
+       <c:column label="Search Term" value="#{campusEmployer.searchTerm}"/>
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:tabs binds="campusEmployer"> 
+	  <c:tab title="Information">
+	    <c:entityForm entity="CampusEmployer">
+	      <c:inputHidden value="#{campusEmployer.campusId}" default="#{campusId}"/>		
+	      <c:inputHidden value="#{campusEmployer.address.id}"/>	
+	      <c:panelGrid columns="1">
+	        <c:panelGridSection columns="1" title="General">
+		        <c:inputText label="Name" value="#{campusEmployer.name}"/>
+		        <c:inputText label="Search Term" value="#{campusEmployer.searchTerm}"/>
+		        <c:inputText label="Industry Type" value="#{campusEmployer.industryType}" />
+		        <c:selectBooleanCheckBox label="Is Domain Specific" value="#{campusEmployer.isDomainSpecific}" />
+		        
+			</c:panelGridSection>
+			<c:panelGridSection columns="1" title="Address"> 
+				<c:inputText label="Address1" value="#{campusEmployer.address.street1}"/>
+				<c:inputText label="Address2" value="#{campusEmployer.address.street2}"/>
+				<c:inputText label="Area" value="#{campusEmployer.address.area}"/>
+				<c:inputText label="City" value="#{campusEmployer.address.city}"/>
+				<c:inputText label="State" value="#{campusEmployer.address.state}"/>
+				<c:inputText label="Country" value="#{campusEmployer.address.country}" default="India"/>
+				<c:inputText label="Pin" value="#{campusEmployer.address.pinCode}" regex="^[0-9]+$" len="6"/>
+			</c:panelGridSection>
+			
+	      </c:panelGrid>
+	    </c:entityForm>
+	  </c:tab>  
+	  <c:tab title="Contacts">
+	  
+	  	<c:entityTable entity="CampusEmployerContact" filter="campusEmployerId=#{campusEmployer.id}" autoLoad="false" >
+		    <c:columns>
+		       <c:column label="First Name" value="#{campusEmployerContact.firstName}" width="200"/>
+		       <c:column label="Last Name" value="#{campusEmployerContact.lastName}" width="200"/>
+		       <c:column label="Email" value="#{campusEmployerContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{campusEmployerContact.phone}" />
+		    </c:columns>
+		</c:entityTable>  
+	    <c:panelGroup title="Information" binds="campusEmployerContact">
+		  	<c:entityForm entity="CampusEmployerContact">
+		      <c:inputHidden value="#{campusEmployerContact.campusEmployerId}" default="#{campusEmployer.id}"/>
+		      <c:panelGrid columns="1">
+		      	<c:inputText label="First Name" value="#{campusEmployerContact.firstName}"/>
+		      	<c:inputText label="Last Name" value="#{campusEmployerContact.lastName}"/>
+		      	<c:inputText label="Email" value="#{campusEmployerContact.email}"/>
+		      	<c:inputText label="Phone" value="#{campusEmployerContact.phone}"/>
+		      	<c:selectOneEntityMenu label="Type" value="#{campusEmployerContact.type.value}" entity="PropertyGroup" filter="name=employer-contact-type"/>
+		      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>  
+	  </c:tab>
+	</c:tabs>
+</div>

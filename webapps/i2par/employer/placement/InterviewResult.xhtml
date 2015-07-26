@@ -1,0 +1,58 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Interview Result</h1>
+   
+   <c:variable name="employerId" value="#{session.E}"/>
+   
+  	 <c:entityTable title="Employer Interview Status" entity="EmployerSchedule" filter="employer.id=#{employerId}" lifeCycle="none">
+	 	<c:columns>
+	       <c:column label="Employer Code" value="#{employerSchedule.employer.code}" width="100"/>
+	       <c:column label="Employer Name" value="#{employerSchedule.employer.name}" width="200"/>
+	       <c:column label="State" value="#{employerSchedule.state.value}" width="200"/>
+	       <c:column label="Dispatch State" value="#{employerSchedule.dispatchState.value}"/>
+	    </c:columns>
+	  </c:entityTable>
+	  
+	  <c:entityTable title="Student Interview" entity="StudentInterview" filter="employerScheduleId=#{employerSchedule.id}" lifeCycle="none" autoLoad="false" binds="employerSchedule">
+	    <c:toolbar>
+			<c:toolbarCommand label="Publish To Campus" command="publishCampus" />
+	   	</c:toolbar>
+	 	<c:columns>
+	       <c:column label="Student Id" value="#{studentInterview.student.code}" width="100"/>
+	       <c:column label="Student Name" value="#{studentInterview.student.name}" width="200"/>
+	       <c:column label="I2Par Id" value="#{studentInterview.student.iparId}" width="100"/>
+	       <c:column label="Result" value="#{studentInterview.selectionState.value}"/>
+	    </c:columns>
+	  </c:entityTable>
+	  <c:panelGroup binds="studentInterview"> 
+		    <c:entityForm entity="StudentInterview">
+		      <c:inputHidden value="#{studentInterview.campusId}" />
+		      <c:inputHidden value="#{studentInterview.employerId}" />
+		      <c:inputHidden value="#{studentInterview.employerScheduleId}" />
+		      <c:inputHidden value="#{studentInterview.student.id}" />
+		      <c:inputHidden value="#{studentInterview.courseId}" />
+		      <c:inputHidden value="#{studentInterview.acceptanceState.id}" />	
+		      <c:panelGrid columns="1">
+	 	      	<c:selectOneEntityMenu label="Result" value="#{studentInterview.selectionState.value}" entity="PropertyGroup" filter="name=student-interview-result"/>
+	 	      	<c:inputDecimal label="Pay" value="#{studentInterview.pay}"/>
+	 	      	<c:inputDate label="Due Date" value="#{studentInterview.acceptanceDueDate}"/>
+	 	      	<c:inputText label="Remarks" value="#{studentInterview.remarks}"/>
+	 	      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>
+		
+	<script type="text/javascript">
+	  function toolbarCommandClicked(nd) {
+		
+		var cmd = nd.getAttribute("command");
+		if (cmd != null) {
+			if (cmd == "publishStudents")
+				ui.action.actOnEntity("EmployerSchedule", "employerSchedule",cmd);
+			else if (cmd == "publishCampus") 
+				ui.action.actOnEntity("EmployerSchedule", "employerSchedule",cmd);
+		}
+		
+	}
+	</script>
+	
+</div>   

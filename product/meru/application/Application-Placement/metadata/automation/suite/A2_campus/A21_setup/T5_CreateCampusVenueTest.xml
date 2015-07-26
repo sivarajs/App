@@ -1,0 +1,28 @@
+<test-suite relativeUrl="campus" name="T5_CreateCampusVenueTest">
+
+    <test-case name="selectCampusProgramTreeItem">
+		<!-- select Setup-->
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[1]" />
+		
+	    <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[5]/div/div[1]" /> 
+		<test name="assertTitle">
+			<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">CAMPUS VENUE</assert>
+		</test>
+	</test-case>
+	<test-case name="newCampusVenue1">
+	    <input type="click" xpath=".//*[@id='campusVenueTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='CampusVenueForm']/div[1]/div[1]/div[2]/input">Venue1</input>
+	    <input type="click" xpath=".//*[@id='campusVenueSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='CampusVenueForm']/div[1]/div[1]/div[2]/input">Venue1</assert>
+	    </test>
+	</test-case>
+	<test-case name="newCampusVenue2">
+	    <input type="click" xpath=".//*[@id='campusVenueTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='CampusVenueForm']/div[1]/div[1]/div[2]/input">Venue2</input>
+	    <input type="click" xpath=".//*[@id='campusVenueSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='CampusVenueForm']/div[1]/div[1]/div[2]/input">Venue2</assert>
+	    </test>
+	</test-case>
+</test-suite>

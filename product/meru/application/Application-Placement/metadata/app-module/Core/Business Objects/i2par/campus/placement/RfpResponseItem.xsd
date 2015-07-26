@@ -1,0 +1,22 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement" xmlns="i2par.campus.placement" xmlns:c="i2par.campus" xmlns:r="app.domain">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   	
+   	<xsd:include schemaLocation="CoursePlacementItem.xsd"/>
+   	
+	<xsd:complexType name="RfpResponseItem">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="rfpResponseId" type="xsd:long" />
+				    <xsd:element ref="coursePlacementItem"/>
+					<xsd:element name="isEligible" type="xsd:boolean" minOccurs="0"/>
+					<xsd:element name="acceptedPay" type="xsd:float" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+</xsd:schema>

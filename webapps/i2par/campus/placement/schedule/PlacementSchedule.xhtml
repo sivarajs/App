@@ -1,0 +1,99 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Schedule</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="PlacementSchedule" filter="campus.id=#{campusId}">
+   		<c:toolbar>
+			<c:toolbarCommand label="Dispatch" command="dispatch" />
+			<c:toolbarCommand label="Abort" command="abort" />
+   		</c:toolbar>
+		<c:popup title="Create Schedule By" binds="placementSchedule" id="scheduleNewPopup">
+			<div style="padding:20px;">
+				<a href="javascript:;" onclick="createSchedule(0);">Registration</a>
+				<span> | </span>
+				<a href="javascript:;" onclick="createSchedule(1);">RFP</a>
+			</div>
+		</c:popup>
+   			
+   		<c:columns>
+		       <c:column label="Document Id" value="#{placementSchedule.documentId}" width="150"/>
+		       <c:column label="RFP No." value="#{placementSchedule.rfp.documentId}" width="150"/>
+		       <c:column label="Registration No." value="#{placementSchedule.placementRegistration.documentId}" width="150"/>
+		       <c:column label="State" value="#{placementSchedule.state.value}"/>
+		</c:columns>
+   		
+   	</c:entityTable>	
+   	
+   	<div id="scheduleContent"></div>
+
+	<script type="text/javascript">
+	<![CDATA[	
+		function createSchedule(type) {
+			document.getElementById("scheduleNewPopup").uiComp.hide();
+			loadPSContent(type == 1, #{campusId}, 0); 
+		}
+		
+		function post_placementScheduleView(entity) {
+			on_rfpSelect(entity);
+		}
+		
+		function post_placementScheduleNew() {
+			on_rfpSelect();
+		}
+		
+		function on_rfpSelect(entity) {
+			
+			if (entity && entity["rfp"]) entity = entity['rfp'];
+			
+			$("#rfpPlaCat").html((entity) ? entity["placementCategory"]["value"] : "");
+			$("#rfpPClass").html((entity) ? entity["placementRegistration"]["placement"]["year"] : "");
+			$("#rfpJoinPer").html((entity) ? entity["placementRegistration"]["placement"]["joiningPeriod"] : "");
+			$("#rfpCampus").html((entity) ? entity["campus"]["alias"] : "");
+		}
+		
+		function toolbarCommandClicked(nd) {
+			
+			var cmd = nd.getAttribute("command");
+			if (cmd != null) {
+				ui.action.actOnEntity("PlacementSchedule", "placementSchedule",cmd);
+			}
+		}
+		
+		function loadPSContent(isRfp, campusId, psId) {
+			
+			var sc = document.getElementById("scheduleContent");
+			if (isRfp) {
+			    if (!sys.isTrue(sc.rfp))   {
+			    	ui.page.section.attachXHtml('campus/placement/schedule/RFP.xhtml?campusId='+campusId+'&placementScheduleId='+psId,'scheduleContent','RFP')
+					sc.rfp = true;
+			    }
+			}
+			else if  (!sys.isValid(sc.rfp) || sys.isTrue(sc.rfp)) { 
+				ui.page.section.attachXHtml('campus/placement/schedule/Registration.xhtml?campusId='+campusId+'&placementScheduleId='+psId,'scheduleContent','Reference')
+				sc.rfp = false;
+			}
+			
+			var ps = varHeap.get("placementSchedule");
+			on_rfpSelect(ps);
+		}
+		
+		(function() {
+			var popup = document.getElementById("scheduleNewPopup")
+			//to avoid displaying the popup on schedule selection. UIComp.binds method won't enable the popup to be shown.
+			popup.set = false;
+			var en = EntityEventName.set("placementSchedule");
+			var cb = function(ae) {
+				//this.source.clear();
+				this.source.uiComp.hide();
+				var e = varHeap.get("placementSchedule");
+				loadPSContent(sys.isValid(e["rfp"]),e["campus"]["id"],e["id"]);				
+			}
+			eventQueue.listener(en, new AppEventListener(en+"rfpP", cb, popup));
+			
+		})();
+	]]>	
+	</script>
+
+</div>   

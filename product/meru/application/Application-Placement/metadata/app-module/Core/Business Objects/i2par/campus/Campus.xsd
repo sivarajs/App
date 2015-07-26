@@ -1,0 +1,49 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus" xmlns="i2par.campus" xmlns:r="app.domain" xmlns:l="app.domain.location" xmlns:an="app.entity.annotation">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-BusinessApp/metadata/app-module/Core/Business Objects/app/domain/location/Address.xsd" namespace="app.domain.location" />
+   <xsd:include schemaLocation="University.xsd"/>
+   	
+	<xsd:complexType name="Campus">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="alias" type="xsd:string" minOccurs="0" />
+					<xsd:element name="code" type="xsd:string"/>
+					<xsd:element name="website" type="xsd:string" minOccurs="0"/>
+					<xsd:element ref="university"/>
+					<xsd:element name="estabilishedOn" type="xsd:date"  minOccurs="0"/>
+					<xsd:element name="affiliatedFrom" type="xsd:date" minOccurs="0"/>
+					<xsd:element name="studentCount" type="xsd:long" minOccurs="0"/>
+					<xsd:element ref="selectionMode" minOccurs="0"/>
+					<xsd:element ref="instituteType" minOccurs="0"/>
+					<xsd:element ref="evaluationType" minOccurs="0"/>
+					<xsd:element ref="educationPattern" minOccurs="0"/>
+					<xsd:element ref="placementOrientation" minOccurs="0"/>
+					<xsd:element name="internshipDuration" type="xsd:int" minOccurs="0"/>
+					<xsd:element ref="internshipUnit" minOccurs="0"/>
+					<xsd:element ref="internshipType" minOccurs="0"/>
+					<xsd:element name="address" type="l:Address" minOccurs="0"/>
+				</xsd:sequence>
+				<xsd:attribute name="uniqueKey" default="name"/>
+				<xsd:attribute name="uniqueKey" default="code"/>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+
+	<xsd:element name="selectionMode" type="r:PropertyGroup"/>
+	<xsd:element name="instituteType" type="r:PropertyGroup"/>
+	<xsd:element name="evaluationType" type="r:PropertyGroup"/>
+	<xsd:element name="educationPattern" type="r:PropertyGroup"/>
+	<xsd:element name="placementOrientation" type="r:PropertyGroup"/>
+	<xsd:element name="internshipUnit" type="r:PropertyGroup"/>
+	<xsd:element name="internshipType" type="r:PropertyGroup"/>
+	
+	<xsd:element name="university" type="University"/>
+	
+	<xsd:element name="campus" type="Campus"/>
+</xsd:schema>

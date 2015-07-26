@@ -1,0 +1,77 @@
+<div xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block"  xmlns:a="app.ui.faces.activity">
+  
+  <h1>Campus</h1>
+	
+   <c:variable name="campusId" value="#{session.E}"/>	
+   <c:entityTable entity="Campus" filter="id=#{campusId}" lifeCycle="none">
+    <c:columns>
+       <c:column label="Code" value="#{campus.code}" width="200"/>
+       <c:column label="Name" value="#{campus.name}" />
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:tabs binds="campus"> 
+	  <c:tab title="Information">
+	    <c:entityForm entity="Campus">
+	      <c:inputHidden value="#{campus.address.id}"/>	
+	      <c:panelGrid columns="1">
+	        <c:panelGridSection columns="1" title="General">
+		      	<c:inputText label="Code" value="#{campus.code}" disabled="false" req="false"/>
+		        <c:inputText label="Name" value="#{campus.name}"/>
+		        <c:inputText label="Alias" value="#{campus.alias}" />
+		        <c:selectOneEntityMenu label="University" value="#{campus.university.name}" entity="University"/>
+				<c:inputText label="Website URL" value="#{campus.website}" />
+				<c:inputDate label="Affiliated From" value="#{campus.affiliatedFrom}" />
+				<c:inputDate label="Estabilished On" value="#{campus.estabilishedOn}" />
+				<c:selectOneEntityMenu label="Institute Type" value="#{campus.instituteType.value}" entity="PropertyGroup" filter="name=institute-type"/>
+				<c:selectOneEntityMenu label="Education Pattern" value="#{campus.educationPattern.value}" entity="PropertyGroup" filter="name=education-pattern"/>
+				<c:inputText label="Total Students" value="#{campus.studentCount}" regex="^[0-9]+$"/>
+			</c:panelGridSection>	
+			<c:panelGridSection columns="1" title="Address"> 
+				<c:inputText label="Address" value="#{campus.address.address}"/>
+				<c:selectOneEntityMenu value="#{campus.address.area.name}" label="Area" entity="CityArea" filter="cityId=1&amp;orderBy=name" />
+				<c:selectOneEntityMenu value="#{campus.address.city.name}" label="City" entity="City" filter="countryId=1&amp;stateId=18" default="1" />
+				<c:selectOneEntityMenu value="#{campus.address.state.name}" label="State" entity="State" filter="countryId=1" default="18" />
+				<c:selectOneEntityMenu value="#{campus.address.country.name}" label="Country" entity="Country" default="1" />
+				<c:inputText label="Pin" value="#{campus.address.pinCode}" regex="^[0-9]+$" len="6"/>
+			</c:panelGridSection>
+			<c:panelGridSection columns="1" title="Placement Details">	
+				<c:selectOneEntityMenu label="Selection Mode" value="#{campus.selectionMode.value}" entity="PropertyGroup" filter="name=selection-mode"/>
+				<c:selectOneEntityMenu label="Evaluation Type" value="#{campus.evaluationType.value}" entity="PropertyGroup" filter="name=evaluation-type"/>
+				<c:selectOneEntityMenu label="Placement Orientation" value="#{campus.placementOrientation.value}" entity="PropertyGroup" filter="name=placement-orientation"/>
+			</c:panelGridSection>
+			<c:panelGridSection columns="1" title="Internship Details">	
+				<c:inputInt label="Duration" value="#{campus.internshipDuration}" />
+				<c:selectOneEntityMenu label="Time Unit" value="#{campus.internshipUnit.value}" entity="PropertyGroup" filter="name=time-unit"/>
+				<c:selectOneEntityMenu label="Type" value="#{campus.internshipType.value}" entity="PropertyGroup" filter="name=internship-type"/>
+			</c:panelGridSection>
+			
+	      </c:panelGrid>
+	    </c:entityForm>
+	  </c:tab>  
+	  <c:tab title="Users">
+	   
+	  	<c:entityTable entity="CampusContact" filter="campusId=#{campusId}" lifeCycle="none">
+		    <c:columns>
+		       <c:column label="Name" value="#{campusContact.name}" width="200"/>
+		       <c:column label="Email" value="#{campusContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{campusContact.phone}"  width="200"/>
+		<!--        <c:column label="Role" value="#{campusContact.user.primaryRole.name}" width="200"/> -->
+		    </c:columns>
+		</c:entityTable>  
+	    <c:panelGroup title="Information" binds="campusContact">
+		  	<c:entityForm entity="CampusContact">
+		      <c:inputHidden value="#{campusContact.campusId}"/>
+		      <c:inputHidden value="#{campusContact.user.id}"/>
+		      <c:panelGrid>
+		      	<c:inputText label="Name" value="#{campusContact.name}"/>
+		      	<c:inputText label="Email" value="#{campusContact.email}"/>
+		      	<c:inputText label="Phone" value="#{campusContact.phone}"/>
+		      	<c:selectOneEntityMenu label="Staff Type" value="#{campusContact.staffType.value}" entity="PropertyGroup" filter="name=campus-staff-type"/>
+		      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>   
+	  </c:tab>
+	  
+	</c:tabs>
+</div>

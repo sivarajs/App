@@ -1,0 +1,44 @@
+<c:template src="/WEB-INF/web/template/ECom.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="pageTitle" value="Retail App" />
+
+	<c:parameter name="content">
+
+		<h1>Contact Us</h1>
+
+		<div class="pageContent">
+
+			<div class="img">
+				<img src="img/home/1.jpg" />
+			</div>
+			<div style="margin: 30px 0">
+				<div class="contact">
+				  <c:entity name="Enterprise" entityId="1"/>
+				  <c:entity name="EnterpriseAddress" filter="enterpriseId=1&amp;isPrimary=Y"/>
+				  <p>#{enterpriseAddress.address.address}</p> 
+				  <p>#{enterpriseAddress.address.area.name}</p>
+				  <p>#{enterpriseAddress.address.city.name}</p>
+				  <p>#{enterpriseAddress.address.state.name}</p>
+			      <p>#{enterpriseAddress.address.country.name} - #{enterpriseAddress.address.pinCode}</p>
+			      <br/>
+				  <p>Email: #{enterprise.email}</p> 
+				  <p>Tel: #{enterprise.phone}</p>
+
+			   </div>
+			   <div style="float: right; width: 48%;">
+					<div>Name</div>
+					<input />
+					<div>Email</div>
+					<input />
+					<div>Subject</div>
+					<input />
+					<div>Message</div>
+					<textarea style="height: 150px"></textarea>
+					<button>Send</button>
+				</div>
+				<div class="clr" />
+			</div>
+		</div>
+	</c:parameter>
+
+</c:template>

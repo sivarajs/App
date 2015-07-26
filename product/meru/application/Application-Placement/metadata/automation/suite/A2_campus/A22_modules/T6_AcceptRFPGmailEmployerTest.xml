@@ -1,0 +1,50 @@
+<test-suite relativeUrl="p/employer/rfp.xhtml?eid=1" name="T6_AcceptRFPGmailEmployerTest">
+
+    <test-case name="loginToStudent1Home">
+		<input type="click" xpath=".//*[@id='rfpResponseTable']/div[2]/table/tbody/tr" />
+	</test-case>
+    <test-case name="acceptRFP">
+        <input type="text" xpath=".//*[@id='RfpResponseForm']/div[1]/div[1]/div[2]/select">121</input>
+        <input type="text" xpath=".//*[@id='RfpResponseForm']/div[1]/div[2]/div[2]/select">411</input>
+        <input type="text" xpath=".//*[@id='RfpResponseForm']/div[1]/div[3]/div[2]/input">6</input>
+        <input type="click" xpath=".//*[@id='rfpResponseSubmit']"/>
+    </test-case>
+    <test-case name="createInterviewRounds">
+        <input type="click" xpath=".//*[@id='rfpResponse-Interview_RoundsTab']/a"/>
+        <input type="click" xpath=".//*[@id='interviewRoundTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[1]/div[2]/select">751</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[2]/div[2]/input">PPT Presentation</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[3]/div[2]/input">31-11-2015</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[4]/div[2]/input">1</input>
+        <input type="click" xpath=".//*[@id='interviewRoundSubmit']"/>
+        
+        <input type="click" xpath=".//*[@id='interviewRoundTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[1]/div[2]/select">752</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[2]/div[2]/input">Test</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[3]/div[2]/input">31-11-2015</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[4]/div[2]/input">1</input>
+        <input type="click" xpath=".//*[@id='interviewRoundSubmit']"/>
+        
+        <input type="click" xpath=".//*[@id='interviewRoundTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[1]/div[2]/select">753</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[2]/div[2]/input">Shortlisting</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[3]/div[2]/input">31-11-2015</input>
+        <input type="text" xpath=".//*[@id='InterviewRoundForm']/div[1]/div[4]/div[2]/input">1</input>
+        <input type="click" xpath=".//*[@id='interviewRoundSubmit']"/>
+    </test-case>
+    
+    <test-case name="createEmployeeContacts">
+        <input type="click" xpath=".//*[@id='rfpResponse-Employer_ContactsTab']/a"/>
+        
+        <input type="click" xpath=".//*[@id='employerContactTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='EmployerContactForm']/div[1]/div[1]/div[2]/input">Gmail HR First Name</input>
+        <input type="text" xpath=".//*[@id='EmployerContactForm']/div[1]/div[2]/div[2]/input">Gmail HR Last Name</input>
+        <input type="text" xpath=".//*[@id='EmployerContactForm']/div[1]/div[3]/div[2]/input">sivarajs@gmail.com</input>
+        <input type="text" xpath=".//*[@id='EmployerContactForm']/div[1]/div[4]/div[2]/input">12345678</input>
+        <input type="text" xpath=".//*[@id='EmployerContactForm']/div[1]/div[5]/div[2]/select">401</input>
+        <input type="click" xpath=".//*[@id='employerContactSubmit']"/>
+        
+        
+    </test-case>
+    
+ </test-suite>

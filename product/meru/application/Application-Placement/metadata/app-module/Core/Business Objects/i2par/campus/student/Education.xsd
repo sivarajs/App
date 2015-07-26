@@ -1,0 +1,31 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.student" xmlns="i2par.campus.student"
+	xmlns:r="app.domain" xmlns:c="i2par.campus">
+
+	<xsd:import
+		schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd"
+		namespace="app.domain" />
+	<xsd:import
+		schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd"
+		namespace="app.domain" />
+		
+	<xsd:import schemaLocation="../Course.xsd" namespace="i2par.campus"/>	
+
+	<xsd:complexType name="Education">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+					<xsd:element name="studentId" type="xsd:long" />
+					<xsd:element ref="c:degree" />
+					<xsd:element name="year" type="xsd:int" />
+					<xsd:element name="board" type="xsd:string" />
+					<xsd:element name="institute" type="xsd:string" />
+					<xsd:element name="percentage" type="xsd:integer" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+
+</xsd:schema>

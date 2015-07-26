@@ -1,0 +1,2 @@
+D:/application/apache-tomcat-8.0.15/webapps/ns/st/css/ecom.css
+D:/application/apache-tomcat-8.0.15/webapps/account/st/css/app.css

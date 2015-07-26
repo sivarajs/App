@@ -1,0 +1,13 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus" xmlns="i2par.campus" xmlns:r="app.domain">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   	
+   <xsd:element name="state" type="r:PropertyGroup"/>
+   <xsd:element name="placementCategory" type="r:PropertyGroup"/>
+   <xsd:element name="preferredPlacement" type="r:PropertyGroup"/>
+   <xsd:element name="selectionType" type="r:PropertyGroup"/>
+   <xsd:element name="sex" type="r:PropertyGroup"/>
+   
+	
+</xsd:schema>

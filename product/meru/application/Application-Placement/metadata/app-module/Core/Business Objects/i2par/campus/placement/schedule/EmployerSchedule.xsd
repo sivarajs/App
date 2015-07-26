@@ -1,0 +1,35 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement.schedule" xmlns="i2par.campus.placement.schedule" xmlns:r="app.domain" xmlns:e="i2par.employer" xmlns:c="i2par.campus" xmlns:p="i2par.campus.placement" xmlns:i="i2par.campus.placement.interview" xmlns:an="app.entity.annotation">
+
+    <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   	<xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   	
+   	<xsd:import schemaLocation="../../CampusCommon.xsd" namespace="i2par.campus"/>
+   	<xsd:import schemaLocation="../RfpResponse.xsd" namespace="i2par.campus.placement"/>
+   	<xsd:import schemaLocation="../../../employer/Employer.xsd" namespace="i2par.employer"/>
+   	<xsd:import schemaLocation="../interview/EmployerInterview.xsd" namespace="i2par.campus.placement.interview"/>
+   	
+   	<xsd:include schemaLocation="PlacementSchedule.xsd"/>
+   	
+   	
+	<xsd:complexType name="EmployerSchedule">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+					<xsd:element name="campusId" type="xsd:long"/>
+					<xsd:element ref="e:employer"/>
+					<xsd:element ref="placementSchedule"/>
+					<xsd:element ref="p:rfpResponse"/>
+				    <xsd:element name="employerInterview" type="i:EmployerInterview" minOccurs="0" maxOccurs="unbounded" an:mappedBy="employerScheduleId"/>
+				    <xsd:element ref="c:state"/>
+				    <xsd:element ref="dispatchState" minOccurs="0"/>
+				    <xsd:element name="acceptDueDate" type="xsd:date" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+	<xsd:element name="employerSchedule" type="EmployerSchedule"/>
+	<xsd:element name="dispatchState" type="r:PropertyGroup"/>
+</xsd:schema>

@@ -1,0 +1,72 @@
+<div xmlns:c="app.ui.faces.component">
+
+	<c:entity name="ProductCategory" entityId="#{query.id}" />
+
+	<h1>Sales Orders</h1>
+
+	<c:entityTable entity="SalesOrder" filter="orderBy=placedOn&amp;isDesc=true">
+		<c:columns>
+			<c:column value="#{salesOrder.id}" label="Id" width="100" />
+			<c:column value="#{salesOrder.orderId}" label="Order No." width="150" />
+			<c:column value="#{salesOrder.businessPartner.name}" label="Name" width="150" />
+			<c:column value="#{salesOrder.delivery.address.address.area.name}" label="Location" width="150" />
+			<c:column value="#{salesOrder.delivery.date}" label="Delivery Date" width="100" />
+			<c:column value="#{salesOrder.placedOn}" label="Placed On" width="170" />
+			<c:column value="#{salesOrder.state.status}" label="Status" />
+		</c:columns>
+	</c:entityTable>
+	<c:tabs binds="salesOrder">
+		<c:tab title="Customer">
+			<c:entityForm entity="SalesOrder" lifeCycle="none">
+
+				<c:panelGrid>
+					<c:panelGridSection title="Personal Information" columns="3">
+						<c:inputText label="Name" value="#{salesOrder.businessPartner.name}" />
+						<c:inputText label="Email" value="#{salesOrder.businessPartner.email}" />
+						<c:inputText label="Mobile" value="#{salesOrder.businessPartner.mobile}" required="true" />
+						<c:inputText label="Alternate Mobile" value="#{salesOrder.businessPartner.altMobile}" />
+						<c:inputText label="Landline" value="#{salesOrder.businessPartner.landline}" />
+					</c:panelGridSection>
+					<c:panelGridSection title="Address" columns="3">
+						<c:inputText label="Address1" value="#{salesOrder.delivery.address.address.address}" />
+						<c:inputText label="Landmark" value="#{salesOrder.delivery.address.address.landmark}" />
+						<c:inputText label="City" value="#{salesOrder.delivery.address.address.city.name}" />
+						<c:inputText label="State" value="#{salesOrder.delivery.address.address.state.name}" />
+						<c:inputText label="Country" value="#{salesOrder.delivery.address.address.country.name}" />
+						<c:inputText label="Pin" value="#{salesOrder.delivery.address.address.pinCode}" />
+					</c:panelGridSection>
+				</c:panelGrid>
+			</c:entityForm>
+		</c:tab>
+		<c:tab title="Line Items">
+			<c:entityTable entity="SalesOrderLineItem" filter="salesOrderId=#{salesOrder.id}" lifeCycle="c" autoLoad="false">
+				<c:columns>
+					<c:column label="Product"
+						value="#{salesOrderLineItem.productLineItem.product.brand} #{salesOrderLineItem.productLineItem.product.name} #{salesOrderLineItem.productLineItem.quantity} #{salesOrderLineItem.productLineItem.unitOfMeasure.value}"
+						width="250" sortable="true" />
+					<c:column label="Quantity" value="#{salesOrderLineItem.quantity}" width="70" sortable="true" />
+					<c:column label="MRP" value="#{salesOrderLineItem.unitMrp}" width="70" />
+					<c:column label="Your Price" value="#{salesOrderLineItem.unitPrice}" width="70" />
+					<c:column label="Quantity" value="#{salesOrderLineItem.quantity}" width="70" />
+					<c:column label="Total Price" value="#{salesOrderLineItem.totalPrice}" width="70" />
+				</c:columns>
+			</c:entityTable>
+			<c:panelGroup binds="salesOrderLineItem">
+				<c:entityForm entity="SalesOrderLineItem">
+					<c:panelGrid columns="2">
+						<c:inputText label="Item Id" value="#{salesOrderLineItem.productLineItem.id}" />
+						<c:inputText label="Order Id" value="#{salesOrderLineItem.salesOrderId}" />
+						<c:inputText label="Product Name" value="#{salesOrderLineItem.productLineItem.product.name}" />
+						<c:inputText label="Quantity" value="#{salesOrderLineItem.quantity}" />
+						<c:inputText label="Price" value="#{salesOrderLineItem.totalPrice}" />
+						<c:inputText label="Unit MRP" value="#{salesOrderLineItem.unitMrp}" />
+						<c:inputText label="Unit Price" value="#{salesOrderLineItem.unitPrice}" />
+						<c:inputText label="Discount" value="#{salesOrderLineItem.discount}" />
+						<c:selectOneEntityMenu value="#{salesOrderLineItem.discountType.value}" req="false" label="Discount Type" entity="PropertyGroup" filter="name=discount-type" />
+						<c:inputText label="Tax Rate" value="#{salesOrderLineItem.taxRate}" />
+					</c:panelGrid>
+				</c:entityForm>
+			</c:panelGroup>
+		</c:tab>
+	</c:tabs>
+</div>

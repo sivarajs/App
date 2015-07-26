@@ -1,0 +1,14 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="app.domain.image" xmlns="app.domain.image" xmlns:an="app.entity.annotation">
+
+	<xsd:complexType name="EntityImage" abstract="true" an:transient="true">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string" />
+			<xsd:element name="relativePath" type="xsd:string" />
+			<xsd:element name="entityId" type="xsd:long" />
+			<xsd:element name="image" type="xsd:string" />
+			<xsd:element name="size" type="xsd:string" />
+			<xsd:element name="isDefault" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

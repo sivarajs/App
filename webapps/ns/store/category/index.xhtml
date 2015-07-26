@@ -1,0 +1,33 @@
+<c:template src="/WEB-INF/app/template/ECom.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="pageTitle" value="Retail App" />
+
+	<c:parameter name="content">
+
+       <h1>#{productCategory.name}</h1> 
+
+		<c:breadCrumb type="category" path="#{productCategory.qualifiedName}"  />
+
+		<div>
+			<c:include src="/store/category/inc/CatNav.xhtml" />
+			
+			<div style="float:left;width:70%;padding-left:20px">
+
+				<c:stackedEntityGrid entity="ProductLineItem" filter="product.productCategory.qualifiedName=[like]#{productCategory.qualifiedName}" groupBy="product"
+					unitExpression="#{quantity} #{unitOfMeasure.value}" itemStyle="width:152px;height:102x;float:left">
+					<c:include src="/store/category/inc/ProductTN.xhtml" />
+				</c:stackedEntityGrid>
+			</div>
+			<div class="clr"></div>
+		</div>
+
+		<script type="text/javascript">
+			(function() {
+				initBuyButtons();
+			})();
+		</script>
+
+
+	</c:parameter>
+
+</c:template>

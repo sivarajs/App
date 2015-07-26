@@ -1,0 +1,46 @@
+
+<div xmlns:c="app.ui.faces.component">
+	<h2>Login</h2>
+	<div>
+		<div class="loginForm">
+			<div id="err" style="color: red"></div>
+			<form method="post" action="/account/a/login?a=#{query.a}">
+				<c:inputHidden name="appId" value="#{query.a}" />
+				<div>
+					<label for="ui">Email</label> <input id="ui" name="email" type="text" />
+				</div>
+				<div>
+					<label for="pw">Password</label> <input type="password" id="pw" name="password" />
+				</div>
+
+				<div>
+					<input type="submit" value="Login" class="formSubmitInput" />
+				</div>
+
+			</form>
+			<a href="javascript:;" class="forgotPasswd"> Forgot Password?</a>
+		</div>
+		<div class="socialLogin">
+		   Or login with
+		   <div><img src="/faces/theme/basic/img/fb.png"/><span>Facebook</span></div>
+		   <div><img src="/faces/theme/basic/img/google.png"/><span>Google</span></div>
+		   
+		</div>
+		<div class="clr"/>
+	</div>
+
+	<div class="foot">
+		<a href="../register">New User?</a>
+	</div>
+
+	<script type="text/javascript">
+		(function() {
+
+			if (window.location.href.indexOf('&amp;i') != -1)
+				document.getElementById("err").innerHTML = "Invalid user name or passwrod";
+
+		})();
+	</script>
+
+</div>
+

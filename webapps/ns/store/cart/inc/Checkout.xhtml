@@ -1,0 +1,38 @@
+<c:dialog id="checkoutDlg" xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block" style="width:900px">
+ 	<c:wizard id="checkoutWz" style="width:65%;float:left;border-right:1px #cccccc dotted;">
+ 		<c:wizardItem title="Login" listener="checkoutLoginListener" rendered="#{session.E} == null">
+			<c:include src="/account/inc/LoginForm.xhtml" />
+		</c:wizardItem>
+		<c:wizardItem title="Profile" listener="checkoutProfileListener" rendered="#{businessPartner.name} == null" src="store/cart/inc/CustomerProfile.xhtml">
+		</c:wizardItem>
+ 		<c:wizardItem title="Address" listener="checkoutAddressListener" src="store/cart/inc/CustomerAddressList.xhtml"/>
+		<c:wizardItem title="Payment" listener="checkout">
+			<c:include src="/store/cart/inc/Payment.xhtml" />
+		</c:wizardItem>
+	</c:wizard>
+ 	<div style="width:30%; float:left;margin:5px">
+	 <c:entityForm id="salesOrderForm" entity="SalesOrder" submittable="false" successMsg="null"> 
+	 	<c:inputHidden id="salesOrderCustomerId" value="#{salesOrder.businessPartner.id}"/>
+	 	<c:inputHidden value="#{salesOrder.delivery.address.id}" id="delAddressId"/>
+	 	<c:inputHidden value="#{salesOrder.paymentMethod.id}" default="1"/>
+	 	<h3>Order Summary</h3>
+	 	<c:entityTable entity="ShoppingCartLineItem" class="shoppingCartTable" rowSelection="none" lifeCycle="none" header="no">
+          <c:columns>
+            <c:column label="Product" value="#{shoppingCartLineItem.productLineItem.product.brand} #{shoppingCartLineItem.productLineItem.product.name} #{shoppingCartLineItem.productLineItem.quantity} #{shoppingCartLineItem.productLineItem.unitOfMeasure.value}" 
+               sortable="true" href="product#{shoppingCartLineItem.productLineItem.product.productCategory.qualifiedName}/#{shoppingCartLineItem.productLineItem.product.brand}~#{shoppingCartLineItem.productLineItem.product.name}/#{shoppingCartLineItem.productLineItem.quantity} #{shoppingCartLineItem.productLineItem.unitOfMeasure.value}" />
+            <c:column label="Qty" value="#{shoppingCartLineItem.quantity}" width="70" sortable="true" align="center" onInputChange="addToCart" />
+            <c:column label="Price" value="#{shoppingCartLineItem.totalPrice}" width="70" align="right" />
+          </c:columns>
+         </c:entityTable>
+	 	<c:entity name="SessionShoppingCart" entityId="-1">
+           <div style="text-align: right;font-size:110%;margin:10px 0;font-weight:bold"> 
+               Grand Total : Rs #{sessionShoppingCart.grandTotal}
+           </div>
+         </c:entity>
+	 	
+	 	<h3>Delivery Address</h3>
+		<div id="delAddress"></div>
+		</c:entityForm>
+	</div>
+	
+</c:dialog>

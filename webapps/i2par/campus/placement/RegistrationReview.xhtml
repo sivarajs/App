@@ -1,0 +1,121 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Registration Review</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="PlacementRegistration" filter="campusId=#{campusId}" lifeCycle="none">
+   	<c:toolbar>
+			<c:toolbarCommand label="Suspend" command="suspend" />
+			<c:toolbarCommand label="Resume" command="resume" />
+			<c:toolbarSeparator />
+			<c:toolbarCommand label="Extend" command="regExtend" />
+			<c:toolbarSeparator />
+	</c:toolbar>
+   
+    <c:columns>
+       <c:column label="Document Id" value="#{placementRegistration.documentId}" width="150"/>
+       <c:column label="Class" value="#{placementRegistration.placement.year}" width="100"/>
+       <c:column label="Commencement" value="#{placementRegistration.placement.commencement}" width="100"/>
+       <c:column label="Placement Category" value="#{placementRegistration.placementCategory.value}" width="200"/>
+       <c:column label="State" value="#{placementRegistration.state.value}"/>
+    </c:columns>
+   </c:entityTable>  
+   <c:tabs binds="placementRegistration">
+   	  <c:tab title="Information">
+		<c:entityForm entity="PlacementRegistration" submittable="false" >
+		    <c:panelGrid columns="1">
+		    	<c:inputText label="Placement" value="#{placementRegistration.placement.year}" disabled="true"/>
+		      	<c:inputText label="Due Date" value="#{placementRegistration.dueDate}" disabled="true"/>
+
+				<c:inputText id="maxOffers" label="Maximum Offers" value="#{placementRegistration.maxOffers}" disabled="true"/>
+					
+				<c:inputText label="Placement Category" value="#{placementRegistration.placementCategory.value}" disabled="true"/>
+				<c:selectBooleanCheckBox label="Set CGPA/Discipline By Student" disabled="true"/>
+					
+				<c:inputTextarea id="regClause" label="Clause" value="#{placementRegistration.clause}" disabled="true"/>
+				<c:inputTextarea id="regNtfn" label="Notification" value="#{placementRegistration.notification}" disabled="true"/>	
+
+		    </c:panelGrid>
+		  </c:entityForm>
+	  </c:tab>	
+	  <c:tab title="Student">
+	  
+	  	 <c:entityTable id="studentTbl" entity="Student" filter="studentRegistration.placementRegistrationId=#{placementRegistration.id}" lifeCycle="none" rowSelection="multiple" autoLoad="false">
+	  	 	<c:toolbar>
+	  	 		<c:toolbarCommand label="Extend" command="extend"/> <!-- Get due date -->
+				<c:toolbarSeparator />	
+		  	    <c:toolbarCommand label="Block" command="block"/> <!-- provide comment -->
+		  	    <c:toolbarCommand label="Unblock" command="unblock"/> 
+				<c:toolbarSeparator />
+			</c:toolbar>
+		    <c:columns>
+		       <c:column label="Id" value="#{student.code}" width="100"/>
+		       <c:column label="Name" value="#{student.name}" width="200"/>
+		       <c:column label="Email" value="#{student.email}" width="170"/>
+		       <c:column label="I2Par Id" value="#{student.iparId}" width="100"/>
+		       <c:column label="State" value="#{student.studentRegistration.state.value}" width="70"/>
+		       <c:column label="Details" value="#{student.studentRegistration.stateInfo}" width="300"/>
+		    </c:columns>
+		 </c:entityTable>
+		 
+	  </c:tab>
+	</c:tabs>	      	
+	
+	 <c:popup title="Deu Date" id="dueDatePopup">
+	    <div style="padding:10px">
+	 		<c:inputHidden name="command" id="exCommand"/>
+	 		<c:inputDate name="deuDate" id="newDueDate"/>
+	 		
+	 		<div style="text-align:right;margin:10px">
+	 			<input type="submit" value="Extend" onclick="extendRegistration()"/>
+	 		</div>
+	 		
+	 	</div>	
+	 </c:popup>
+	
+	<script type="text/javascript">
+	
+		function toolbarCommandClicked(nd) {
+			
+			var cmd = nd.getAttribute("command");
+			if (cmd != null) {
+				if (cmd == "extend" || cmd == "regExtend") {
+					document.getElementById("exCommand").value = cmd;
+					document.getElementById("dueDatePopup").uiComp.show();
+					return;
+				}
+				
+				if (cmd == "block" || cmd == "unblock") {
+					var stuIds = document.getElementById("studentTbl").uiComp.getSelectedEntityIds();
+					cmd += "&amp;studentIds="+stuIds;
+				}
+				
+				ui.action.actOnEntity("PlacementRegistration", "placementRegistration",cmd);
+			}
+		}
+		
+		function extendRegistration() {
+			cmd = document.getElementById("exCommand").value;
+			if (cmd == "extend") {
+				var stuIds = document.getElementById("studentTbl").uiComp.getSelectedEntityIds();
+				cmd += "&amp;studentIds="+stuIds;
+			}
+			else cmd = "extend";
+			
+			var dueDate = document.getElementById("newDueDate").value;
+			if (!sys.isValid(dueDate)) {
+				alert("Please provide due date");
+				return;
+			}
+			cmd += "&amp;dueDate="+dueDate;
+			
+			ui.action.actOnEntity("PlacementRegistration", "placementRegistration.id",cmd);
+			ui.popup.hideById("dueDatePopup");
+		}
+
+		
+		
+	</script>
+	
+</div>   

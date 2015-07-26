@@ -1,0 +1,21 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Campus Program</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="CampusProgram" filter="campusId=#{campusId}">
+    <c:columns>
+       <c:column label="Program" value="#{campusProgram.program.value}" width="250"/>
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:panelGroup binds="campusProgram"> 
+	    <c:entityForm entity="CampusProgram">
+	      <c:inputHidden value="#{campusProgram.campusId}" default="#{campusId}"/>	
+	      <c:panelGrid columns="1">
+	      		<c:selectOneEntityMenu label="Program" value="#{campusProgram.program.value}" entity="PropertyGroup" filter="name=degree-type"/>
+	      </c:panelGrid>
+	    </c:entityForm>
+	</c:panelGroup>
+</div>

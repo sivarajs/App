@@ -1,0 +1,6 @@
+use account
+source D:\dev\mydev\product\meru\application\Application-Security\_generated\sql\schema_mysql.sql
+source D:\dev\mydev\product\meru\application\Application-Security\sql\seed-data.sql
+use i2par
+source D:\dev\mydev\product\meru\application\Application-Placement\_generated\sql\schema_mysql.sql
+source D:\dev\mydev\product\meru\application\Application-Placement\sql\seed_data.sql

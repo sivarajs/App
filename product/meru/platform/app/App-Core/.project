@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+  <name>App-Core</name>
+  <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>Common-System</project>
+    <project>Infra-Diagnostics</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+  <linkedResources>
+    <link>
+      <name>classes</name>
+      <type>2</type>
+      <location>D:/application/apache-tomcat-8.0.15/webapps/temp/WEB-INF/classes</location>
+    </link>
+    <link>
+      <name>classes</name>
+      <type>2</type>
+      <location>D:/application/apache-tomcat-8.0.15/webapps//temp/WEB-INF/classes</location>
+    </link>
+  </linkedResources>
+</projectDescription>

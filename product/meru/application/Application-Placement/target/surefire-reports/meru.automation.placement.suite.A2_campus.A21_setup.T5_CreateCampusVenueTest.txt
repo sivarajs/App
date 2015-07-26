@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: meru.automation.placement.suite.A2_campus.A21_setup.T5_CreateCampusVenueTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.973 sec - in meru.automation.placement.suite.A2_campus.A21_setup.T5_CreateCampusVenueTest

@@ -1,0 +1,82 @@
+
+<c:tabs xmlns:c="app.ui.faces.component">
+            
+	  <c:tab title="Information">
+	  
+		<c:entityForm entity="PlacementSchedule" id="placementScheduleForm">
+			<c:inputHidden value="#{placementSchedule.documentId}"/>
+			<c:inputHidden value="#{placementSchedule.campus.id}" default="#{query.campusId}"/>
+			<c:inputHidden value="#{placementSchedule.state.id}" default="701"/>
+			<c:inputHidden value="#{placementSchedule.mode}" default="RFP"/>
+			<c:inputHidden value="#{placementSchedule.rfp.id}" id="rfpId"/>
+			<c:panelGrid>
+			
+				<c:selectOneEntityPopup label="RFP" value="#{placementSchedule.rfp.documentId}">
+		           <c:popup title="Select RFP">
+		        	 <c:entityTable entity="Rfp" filter="campus.id=#{query.campusId}" lifeCycle="none">
+					    <c:columns>
+					       <c:column label="Document Id" value="#{rfp.documentId}" width="150"/>
+					       <c:column label="Class" value="#{rfp.placement.year}" width="100"/>
+					       <c:column label="Commencement" value="#{rfp.placement.commencement}" width="100"/>
+					       <c:column label="Placement Category" value="#{rfp.placementRegistration.placementCategory.value}" width="200"/>
+					       <c:column label="State" value="#{rfp.state.value}"/>
+					    </c:columns>
+					   </c:entityTable>
+					</c:popup>    
+		        </c:selectOneEntityPopup>
+		      	<c:inputDate label="Due Date" value="#{placementSchedule.dueDate}"/>
+		      	<c:outputText id="rfpPlaCat" label="Placement Category" value="#{placementSchedule.rfp.placementCategory.value}"/>
+		      	<c:outputText id="rfpPClass" label="Class" value="#{placementSchedule.placementRegistration.placement.year}"/>
+		      	<c:outputText  id="rfpJoinPer" label="Joining Period" value="#{placementSchedule.placementRegistration.placement.joiningPeriod}"/>
+		      	<c:outputText id="rfpCampus" label="Campus" value="#{placementSchedule.rfp.campus.alias}"/>
+			</c:panelGrid>
+		</c:entityForm>
+	 </c:tab>
+	 <c:tab title="Campus Contacts">
+	  	<c:entityTable entity="CampusContact" filter="campusId=#{query.campusId}" lifeCycle="none">
+		    <c:columns>
+		       <c:column label="Name" value="#{campusContact.name}" width="200"/>
+		       <c:column label="Email" value="#{campusContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{campusContact.phone}" width="100"/>
+		    </c:columns>
+		</c:entityTable>  
+	  </c:tab>
+	 <c:tab title="Employer Interview Schedule">
+	 	<c:entityTable entity="EmployerSchedule" filter="placementSchedule.id=#{placementSchedule.id}" autoLoad="false" lifeCycle="none">
+		 	<c:columns>
+		       <c:column label="Employer" value="#{employerSchedule.employer.name}" width="250"/>
+		    </c:columns>
+	 	</c:entityTable>
+	 	<br/>
+	 	
+	 	<c:entityTable title="Interview Schedule" entity="EmployerInterview" filter="employerScheduleId=#{employerSchedule.id}" lifeCycle="none" autoLoad="false" binds="employerSchedule">
+		 	<c:columns>
+		       <c:column label="Interview Type" value="#{employerInterview.interviewType.value}" width="200"/>
+		       <c:column label="Description" value="#{employerInterview.description}" width="250"/>
+		       <c:column label="Venue" value="#{employerInterview.campusVenue.name}" width="200"/>
+		       <c:column label="Date" value="#{employerInterview.date}" width="100"/>
+		       <c:column label="Time" value="#{employerInterview.time}" width="100"/>
+		       <c:column label="Duration" value="#{employerInterview.duration}"/>
+		    </c:columns>
+	 	</c:entityTable>
+		 	
+	 	<c:panelGroup binds="employerInterview">
+	 		<c:entityForm entity="EmployerInterview">
+				<c:inputHidden value="#{employerInterview.employerScheduleId}"/>
+				<c:inputHidden value="#{employerInterview.interviewType.id}"/>
+				<c:inputHidden value="#{employerInterview.state.id}"/>
+				<c:panelGrid>
+					<c:inputText label="Description" value="#{employerInterview.description}"/>
+					<c:selectOneEntityMenu label="Venue" value="#{employerInterview.campusVenue.name}" entity="CampusVenue" filter="campusId=#{query.campusId}"/>
+					<c:inputText label="Temporary Venue" value="#{employerInterview.tempVenue}"/>							
+					<c:inputDate label="Date" value="#{employerInterview.date}"/>
+					<c:inputText label="Time" value="#{employerInterview.time}"/>
+					<c:inputText label="Duration" value="#{employerInterview.duration}"/>
+				</c:panelGrid>
+			</c:entityForm>	
+	 	</c:panelGroup>
+		 	
+	 	
+	 </c:tab>
+	 
+</c:tabs>	 	

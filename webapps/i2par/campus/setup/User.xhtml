@@ -1,0 +1,27 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>User</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="CampusContact" filter="campusId=#{campusId}" lifeCycle="none">
+		    <c:columns>
+		       <c:column label="Name" value="#{campusContact.name}" width="200"/>
+		       <c:column label="Email" value="#{campusContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{campusContact.phone}"  width="200"/>
+		       <!-- <c:column label="Role" value="#{campusContact.user.primaryRole.name}" width="200"/> -->
+		    </c:columns>
+		</c:entityTable>  
+	    <c:panelGroup title="Information" binds="campusContact">
+		  	<c:entityForm entity="CampusContact">
+		      <c:inputHidden value="#{campusContact.campusId}"/>
+		      <c:inputHidden value="#{campusContact.user.id}"/>
+		      <c:panelGrid>
+		      	<c:inputText label="Name" value="#{campusContact.name}"/>
+		      	<c:inputText label="Email" value="#{campusContact.email}"/>
+		      	<c:inputText label="Phone" value="#{campusContact.phone}"/>
+		      	<c:selectOneEntityMenu label="Staff Type" value="#{campusContact.staffType.value}" entity="PropertyGroup" filter="name=campus-staff-type"/>
+		      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>  
+</div>

@@ -1,0 +1,35 @@
+<test-suite relativeUrl="campus" name="T2_UpdateCampusTest">
+
+    <test-case name="selectCampusTreeItem">
+		<!-- select Setup-->
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[1]" />
+		
+	    <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[1]/div/div[1]" /> 
+		<test name="assertTitle">
+			<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">CAMPUS</assert>
+		</test>
+	</test-case>
+	<test-case name="selectCampus">
+	    <input type="click" xpath=".//*[@id='campusTable']/div[2]/table/tbody/tr"/>
+	    <test name="assertTitle">
+			<assert entity="Attribute" name="disabled" operation="Equals" xpath=".//*[@id='CampusForm']/div[1]/div[1]/div[2]/div[2]/input">true</assert>
+		</test>
+	</test-case>    
+	
+	
+	<test-case name="updateCampus">
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[1]/div[9]/div[2]/select">1</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[1]/div[10]/div[2]/select">22</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[3]/div[2]/div[2]/select">41</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[3]/div[3]/div[2]/select">51</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[3]/div[4]/div[2]/select">71</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[4]/div[2]/div[2]/input">6</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[4]/div[3]/div[2]/select">93</input>
+	    <input type="text" xpath=".//*[@id='CampusForm']/div[1]/div[4]/div[4]/div[2]/select">81</input>
+	    <input type="click" xpath=".//*[@id='campusSubmit']"/>
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="disabled" operation="Equals" xpath=".//*[@id='CampusForm']/div[1]/div[1]/div[2]/div[2]/input">true</assert>
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='CampusForm']/div[1]/div[4]/div[2]/div[2]/input" comments="verify duration">6</assert>
+	    </test>
+	</test-case>
+</test-suite>

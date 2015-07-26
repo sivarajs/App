@@ -1,0 +1,16 @@
+<c:template src="/WEB-INF/app/template/Customer.xml" xmlns:c="app.ui.faces.component">
+
+  <c:variable name="page.title" value="Fresh and quality products at the best price"/>
+
+  <c:parameter name="content">
+      <h2>My Orders</h2>
+      <c:entityTable class="shoppingCartTable" entity="SalesOrder" rowSelection="none" selectable="false" contentStyle="max-height:10000px;" lifeCycle="none">
+          <c:columns>
+            <c:column label="Order No." value="#{salesOrder.orderId}" href="customer/order.xhtml?no=#{salesOrder.id}" width="200"/>
+            <c:column label="Placed On" value="#{salesOrder.placedOn}" width="200"/>
+            <c:column label="Status" value="#{salesOrder.state.status}" />
+          </c:columns>
+   </c:entityTable>
+     
+  </c:parameter>
+</c:template>

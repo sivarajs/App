@@ -1,0 +1,25 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Event</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="PlacementSchedule" filter="campus.id=#{campusId}&amp;state.value=Dispatched" lifeCycle="none">
+   		<c:columns>
+		       <c:column label="Document Id" value="#{placementSchedule.documentId}" width="150"/>
+		       <c:column label="RFP No." value="#{placementSchedule.rfp.documentId}" width="150"/>
+		       <c:column label="Registration No." value="#{placementSchedule.placementRegistration.documentId}" width="150"/>
+		       <c:column label="State" value="#{placementSchedule.state.value}"/>
+		</c:columns>
+   	</c:entityTable>	
+
+   <c:entityTable title="Interview Status" entity="EmployerSchedule" filter="placementSchedule.id=#{placementSchedule.id}" lifeCycle="none" autoLoad="false" binds="placementSchedule">
+		 	<c:columns>
+		       <c:column label="Employer Code" value="#{employerSchedule.employer.code}" width="100"/>
+		       <c:column label="Employer Name" value="#{employerSchedule.employer.name}" width="250"/>
+		       <!-- <c:entityColumns label="#{employerSchedule.employerInterview.description}" value="#{campusVenue.name}, #{date} #{time}" width="150"/> -->   
+		       <c:entityColumns entity="PropertyGroup" filter="name=interview-type" label="#{propertyGroup.value}" value="#{campusVenue.name}, #{date} #{time}" width="150"/>
+		      <!--  <c:dynamicColumns label="#{employerSchedule.employerInterview}" value="#{description} #{campusVenue.name}, #{date} #{time}" width="150"/>--> 
+		    </c:columns>
+	</c:entityTable>
+</div>   

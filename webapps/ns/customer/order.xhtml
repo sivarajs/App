@@ -1,0 +1,21 @@
+<c:template src="/WEB-INF/app/template/Customer.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="page.title" value="Fresh and quality products at the best price" />
+
+	<c:parameter name="content">
+		<c:entity name="SalesOrder" filter="id=#{query.no}" />
+
+		<h2>My Order - #{salesOrder.orderId}</h2>
+		<c:entityTable class="shoppingCartTable" entity="SalesOrderLineItem" rowSelection="none" selectable="false" numberable="true" contentStyle="max-height:10000px;" lifeCycle="none">
+			<c:columns>
+				<c:column label="Product"
+					value="#{salesOrderLineItem.productLineItem.product.brand} #{salesOrderLineItem.productLineItem.product.name} #{salesOrderLineItem.productLineItem.quantity} #{salesOrderLineItem.productLineItem.unitOfMeasure.value}"
+					href="product#{salesOrderLineItem.productLineItem.product.productCategory.qualifiedName}/#{salesOrderLineItem.productLineItem.product.brand}~#{salesOrderLineItem.productLineItem.product.name}/#{salesOrderLineItem.productLineItem.quantity} #{salesOrderLineItem.productLineItem.unitOfMeasure.value}"
+					width="300" />
+				<c:column label="Quantity" value="#{salesOrderLineItem.quantity}" width="200" />
+				<c:column label="Price" value="#{salesOrderLineItem.totalPrice}" />
+			</c:columns>
+		</c:entityTable>
+
+	</c:parameter>
+</c:template>

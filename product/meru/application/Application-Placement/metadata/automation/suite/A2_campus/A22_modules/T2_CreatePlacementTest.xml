@@ -1,0 +1,38 @@
+<test-suite relativeUrl="campus" name="T2_CreatePlacementTest">
+
+    <test-case name="selectPlacementHierarchyTreeItem">
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[2]" />
+		<input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[1]/div/div[1]"/>
+		<test name="assertTitle">
+		   <assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">PLACEMENT HIERARCHY</assert>
+		</test>
+	</test-case>
+	<test-case name="newPlacement1">
+	    <input type="click" xpath=".//*[@id='placementTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[1]/div[2]/input">2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[2]/div[2]/input">01-06-2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[3]/div[2]/input">31-04-2016</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[4]/div[2]/input">01-06-2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[5]/div[2]/input">31-10-2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[6]/div[2]/input">01-11-2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[7]/div[2]/input">01-06-2016</input>
+	    <input type="click" xpath=".//*[@id='placementSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='PlacementForm']/div[1]/div[1]/div[2]/input">2015</assert>
+	    </test>
+	</test-case>
+	<test-case name="newPlacement2">
+	    <input type="click" xpath=".//*[@id='placementTable']/div[1]/div[1]/div[1]" />
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[1]/div[2]/input">2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[2]/div[2]/input">01-06-2015</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[3]/div[2]/input">31-04-2016</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[4]/div[2]/input">01-01-2016</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[5]/div[2]/input">28-02-2016</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[6]/div[2]/input">01-01-2016</input>
+	    <input type="text" xpath=".//*[@id='PlacementForm']/div[1]/div[7]/div[2]/input">01-06-2016</input>
+	    <input type="click" xpath=".//*[@id='placementSubmit']" />
+	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='PlacementForm']/div[1]/div[1]/div[2]/input">2015</assert>
+	    </test>
+	</test-case>
+</test-suite>

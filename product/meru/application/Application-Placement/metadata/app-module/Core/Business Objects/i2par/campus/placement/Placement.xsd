@@ -1,0 +1,28 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement" xmlns="i2par.campus.placement" xmlns:r="app.domain" xmlns:c="i2par.campus">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   	<xsd:import schemaLocation="../CampusCommon.xsd" namespace="i2par.campus"/>
+   	
+	<xsd:complexType name="Placement">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="campusId" type="xsd:long" />
+					<xsd:element name="year" type="xsd:integer"/>
+					<xsd:element name="academicStart" type="xsd:date" />
+					<xsd:element name="academicEnd" type="xsd:date" />
+					<xsd:element name="rolloutStart" type="xsd:date" />
+					<xsd:element name="rolloutEnd" type="xsd:date" />
+					<xsd:element name="commencement" type="xsd:date" />
+					<xsd:element name="joiningPeriod" type="xsd:date" />
+					<xsd:element ref="c:state"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+	<xsd:element name="placement" type="Placement"/>
+	
+</xsd:schema>

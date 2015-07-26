@@ -1,0 +1,131 @@
+<div xmlns:c="app.ui.faces.component" xmlns:p="app.ui.faces.page" xmlns:b="app.ui.faces.block" xmlns:a="app.ui.faces.activity">
+
+  
+  	
+	   <h1>RFP Response</h1>
+	   
+	   <c:entityTable entity="RfpResponse" filter="employer.id=#{employerId}" lifeCycle="none">
+	   		<c:columns>
+			       <c:column label="Document Id" value="#{rfpResponse.rfp.documentId}" width="150"/>
+			       <c:column label="Class" value="#{rfpResponse.rfp.placement.year}" width="100"/>
+			       <c:column label="Camplus" value="#{rfpResponse.rfp.campus.name}" width="200"/>
+			       <c:column label="Preferred Placement" value="#{rfpResponse.preferredPlacement.value}" width="200"/>
+			       <c:column label="State" value="#{rfpResponse.state.value}"/>
+			</c:columns>
+	   	</c:entityTable>	
+	   	
+	   	<c:tabs xmlns:c="app.ui.faces.component" binds="rfpResponse"> 
+	
+		  <c:tab title="Information">
+		  
+			<c:entityForm entity="RfpResponse">
+				<c:inputHidden value="#{rfpResponse.employer.id}"/>
+				<c:inputHidden value="#{rfpResponse.campusId}"/>
+				<c:inputHidden value="#{rfpResponse.rfp.id}"/>
+				<c:inputHidden value="#{rfpResponse.state.id}" />
+				
+				<c:panelGrid>
+				
+				
+					<c:selectOneEntityMenu label="Preferred Placement" value="#{rfpResponse.preferredPlacement.value}" entity="PropertyGroup" filter="name=preferred-placement"/>
+					<c:selectOneEntityMenu label="Selection Type" value="#{rfpResponse.selectionType.value}" entity="PropertyGroup" filter="name=selection-type"/>
+					<c:inputDecimal label="Acceptable Pay" value="#{rfpResponse.acceptablePay}"/>
+				
+					<c:inputText label="Document Id" value="#{rfpResponse.rfp.documentId}" disabled="true"/>
+					<c:inputText label="State" value="#{rfpResponse.state.value}" disabled="true"/>
+					<c:inputText label="Class" value="#{rfpResponse.rfp.placement.year}" disabled="true"/>
+			      	<c:inputText label="Due Date" value="#{rfpResponse.rfp.dueDate}" disabled="true"/>
+			      	<c:inputText label="Preferred Placement" value="#{rfpResponse.rfp.preferredPlacement.value}" disabled="true"/>
+			      	<c:inputText label="Preferred Category" value="#{rfpResponse.rfp.placementCategory.value}" disabled="true"/>
+					<c:inputText label="Expected Pay" value="#{rfpResponse.rfp.expectedPay}" disabled="true"/>
+					<c:inputText label="Total Students" value="#{rfpResponse.rfp.totalStudents}" disabled="true"/>
+					<c:inputText label="Participated Students" value="#{rfpResponse.rfp.participatedStudents}" disabled="true"/>
+				</c:panelGrid>
+			</c:entityForm>	
+		  </c:tab>
+		  
+		  <c:tab title="Course Details">
+		  	<c:entityTable id="cpItem" entity="RfpResponseItem" filter="rfpResponseId=#{rfpResponse.id}" autoLoad="false" lifeCycle="none">
+			    <c:columns>
+			       <c:column label="Degree" value="#{rfpResponseItem.coursePlacementItem.course.degree.value}" width="200"/>
+			       <c:column label="Discipline" value="#{rfpResponseItem.coursePlacementItem.course.discipline.value}" width="200"/>
+			       <c:column label="Education Type" value="#{rfpResponseItem.coursePlacementItem.course.educationType.value}" width="200"/>
+			       <c:column label="No. of Students" value="#{rfpResponseItem.coursePlacementItem.studentCount}" width="200"/>
+			       <c:column label="Expected Pay" value="#{rfpResponseItem.coursePlacementItem.expectedPay}" width="100"/>
+			       <c:column label="Expected Pay" value="#{rfpResponseItem.acceptedPay}" width="100"/>
+			       <c:column label="Interested?" value="#{rfpResponseItem.isEligible}" width="100"/>
+			       <c:column label="Offers Made" value="#{rfpResponseItem.coursePlacementItem.offersMade}"/>
+			       
+			    </c:columns>
+			</c:entityTable>
+			<c:panelGroup binds="rfpResponseItem">
+				<c:entityForm entity="RfpResponseItem">
+				    <c:inputHidden value="#{rfpResponseItem.rfpResponseId}"/>
+					<c:inputHidden value="#{rfpResponseItem.coursePlacementItem.id}"/>
+					<c:panelGrid>
+					    <c:selectBooleanCheckBox label="Interested?" value="#{rfpResponseItem.isEligible}" />
+						<c:inputText label="Acceptable Pay" value="#{rfpResponseItem.acceptedPay}" />
+					</c:panelGrid>
+				</c:entityForm>		
+			</c:panelGroup>
+		 </c:tab>	
+		  
+		  <c:tab title="Interview Rounds">
+		  	<c:entityTable entity="InterviewRound" filter="rfpResponseId=#{rfpResponse.id}" autoLoad="false">
+			    <c:columns>
+			       <c:column label="Description" value="#{interviewRound.description}" width="200"/>
+			       <c:column label="Expected Date" value="#{interviewRound.expectedDate}" width="200"/>
+			       <c:column label="Duration" value="#{interviewRound.duration}"/>
+			    </c:columns>
+			</c:entityTable>  
+			<c:panelGroup binds="interviewRound">
+				<c:entityForm entity="InterviewRound">
+					<c:inputHidden value="#{interviewRound.rfpResponseId}" default="#{rfpResponse.id}"/>
+					
+					<c:panelGrid>
+						<c:selectOneEntityMenu label="Interview Type" value="#{interviewRound.interviewType.value}" entity="PropertyGroup" filter="name=interview-type"/>
+						<c:inputText label="Description" value="#{interviewRound.description}" />
+						<c:inputDate label="Expected Date" value="#{interviewRound.expectedDate}" />
+						<c:inputInt label="Duration" value="#{interviewRound.duration}" />
+					</c:panelGrid>
+				</c:entityForm>
+			</c:panelGroup>		
+		  </c:tab>
+		  
+		  <c:tab title="Employer Contacts">
+	  
+		  	<c:entityTable entity="EmployerContact" filter="employerId=#{employerId}">
+			    <c:columns>
+			       <c:column label="First Name" value="#{employerContact.firstName}" width="200"/>
+			       <c:column label="Last Name" value="#{employerContact.lastName}" width="200"/>
+			       <c:column label="Email" value="#{employerContact.email}" width="200"/>
+			       <c:column label="Phone" value="#{employerContact.phone}" />
+			    </c:columns>
+			</c:entityTable>  
+		    <c:panelGroup binds="employerContact">
+			  	<c:entityForm entity="EmployerContact">
+			      <c:inputHidden value="#{employerContact.employerId}" default="#{employerId}"/>
+			      <c:panelGrid columns="1">
+			      	<c:inputText label="First Name" value="#{employerContact.firstName}"/>
+			      	<c:inputText label="Last Name" value="#{employerContact.lastName}"/>
+			      	<c:inputText label="Email" value="#{employerContact.email}"/>
+			      	<c:inputText label="Phone" value="#{employerContact.phone}"/>
+			      	<c:selectOneEntityMenu label="Type" value="#{employerContact.type.value}" entity="PropertyGroup" filter="name=employer-contact-type"/>
+			      </c:panelGrid>
+			    </c:entityForm>
+			</c:panelGroup>  
+		  </c:tab>
+		  
+		  <c:tab title="Campus Contacts">
+		  	<c:entityTable entity="CampusContact" filter="campusId=#{rfpResponse.campusId}" lifeCycle="none" autoLoad="false">
+			    <c:columns>
+			       <c:column label="Name" value="#{campusContact.name}" width="100"/>
+			       <c:column label="Email" value="#{campusContact.email}" width="100"/>
+			       <c:column label="Phone" value="#{campusContact.phone}" width="100"/>
+			       <c:column label="Type" value="#{campusContact.user.primaryRole.name}" width="400"/>
+			    </c:columns>
+			</c:entityTable>  
+		  </c:tab>
+		  
+	</c:tabs>   
+</div>	   	

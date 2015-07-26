@@ -1,0 +1,29 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Course Curriculum</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:entityTable entity="Course" filter="campusId=#{campusId}">
+    <c:columns>
+       <c:column label="Degree" value="#{course.degree.value}" width="250"/>
+       <c:column label="Discipline" value="#{course.discipline.value}" width="250"/>
+       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+       <c:column label="Duration" value="#{course.duration}" width="100"/>
+       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:panelGroup binds="course"> 
+	    <c:entityForm entity="Course">
+	      <c:inputHidden value="#{course.campusId}" default="#{campusId}"/>	
+	      <c:panelGrid columns="1">
+	      		<c:selectOneEntityMenu label="Degree" value="#{course.degree.value}" entity="PropertyGroup" filter="name=degree"/>
+	      		<c:selectOneEntityMenu label="Discipline" value="#{course.discipline.value}" entity="PropertyGroup" filter="name=degree-discipline"/>
+	      		<c:selectOneEntityMenu label="Education Type" value="#{course.educationType.value}" entity="PropertyGroup" filter="name=education-type"/>
+		      	<c:inputInt label="Duration" value="#{course.duration}"/>
+		      	<c:selectOneEntityMenu label="Time Unit" value="#{course.timeUnit.value}" entity="PropertyGroup" filter="name=time-unit"/>
+	      </c:panelGrid>
+	    </c:entityForm>
+	</c:panelGroup>
+</div>

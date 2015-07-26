@@ -1,0 +1,27 @@
+<application name="Security Application">
+
+	<binding-components>
+		<binding-component class="meru.app.binding.http.HttpBindingComponent"></binding-component>
+	</binding-components>
+
+	<application-engine class="meru.app.engine.entity.EntityAppEngine">
+	</application-engine>
+
+	<persistent-store class="meru.persistence.jpa.JPADatabaseStore">
+		<constructor-arg type="java.lang.String">account-domain</constructor-arg>
+	</persistent-store>
+
+	<entity-class-registry class="app.Application_SecurityEntityClassRegistry">
+	</entity-class-registry>
+	
+	<services>
+	    <service name="AccountService" class="meru.application.security.account.AccountManager"/>
+    </services>
+	<properties>
+		<property name="app.http.protocol">http</property>
+		<property name="app.http.domain">localhost</property>
+		<property name="app.http.port">8080</property>
+		<property name="app.schedule.enabled">false</property>
+	</properties>
+
+</application>

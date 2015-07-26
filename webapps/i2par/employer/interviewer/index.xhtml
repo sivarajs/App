@@ -1,0 +1,41 @@
+<c:template src="/WEB-INF/template/Generic.xml" xmlns:c="app.ui.faces.component">
+
+  <c:parameter name="workArea">
+   <div xmlns:c="app.ui.faces.component">
+
+
+      <c:variable name="employerId" value="#{session.EID}"/>
+      
+      <c:entity name="EmployerSchedule" filter="employer.id=#{employerId}"/>
+      
+      <p>Welcome <b>#{employerSchedule.employer.name}</b> By <b>#{employerSchedule.placementSchedule.campus.alias} </b></p>
+      
+      
+      <c:panelGrid>
+         <c:inputText id="stuInput" label="Enter Student Id: "/>
+         <input label="" type="submit" value="Get" onclick="loadStuInterview()"/>
+      </c:panelGrid>
+         
+      <div id="stuIntContent"></div>     
+
+
+      <script type="text/javascript">
+      
+      <![CDATA[	
+       		function loadStuInterview() {
+       			
+       			var val = document.getElementById("stuInput").value;
+       			if (!sys.isValid(val)) {
+       				alert("Please provide student id");
+       				return;
+       			}
+       			
+       			workArea.load("Student","employer/interviewer/StudentInterview.xhtml?studentId="+val,"stuIntContent");
+       		}
+       ]]>		
+      </script>
+      
+       
+  </div>
+  </c:parameter> 
+</c:template>

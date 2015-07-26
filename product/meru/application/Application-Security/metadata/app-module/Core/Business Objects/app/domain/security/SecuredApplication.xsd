@@ -1,0 +1,19 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="app.domain.security" xmlns="app.domain.security" xmlns:r="app.domain">
+
+	<xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/BusinessApplication.xsd" namespace="app.domain" />
+    
+	<xsd:complexType name="SecuredApplication">
+		<xsd:complexContent>
+			<xsd:extension base="r:BusinessApplication">
+				<xsd:sequence>
+					<xsd:element name="accessType" type="xsd:string" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+	<xsd:element name="application" type="SecuredApplication"/>
+	
+</xsd:schema>

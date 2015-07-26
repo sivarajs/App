@@ -1,0 +1,26 @@
+<application name="Campus Placement Application">
+
+	<binding-components>
+		<binding-component class="meru.app.binding.http.HttpBindingComponent"></binding-component>
+	</binding-components>
+
+	<application-engine class="meru.app.engine.entity.EntityAppEngine"/>
+
+	<persistent-store class="meru.persistence.jpa.JPADatabaseStore">
+		<constructor-arg type="java.lang.String">i2par-campus-domain</constructor-arg>
+	</persistent-store>
+
+	<entity-class-registry
+		class="i2par.placement.CampusPlacementEntityClassRegistry">
+    </entity-class-registry>
+
+	<properties>
+		<property name="app.http.domain">i2par.com</property>
+		<property name="app.http.port"></property>
+		<property name="app.http.ssl.port"></property>
+		<property name="app.id">100</property>
+		<property name="app.client.id">-1</property>
+        <property name="app.schedule.enabled">true</property>
+	</properties>
+
+</application>

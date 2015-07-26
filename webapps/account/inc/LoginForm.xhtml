@@ -1,0 +1,21 @@
+
+<div xmlns:c="app.ui.faces.component">
+	<c:message id="loginMsg" type="error" class="err" />
+	<form id="loginFrom" action="/account/a/login" method="POST" target="login-frame">
+	   <c:inputHidden name="t" value="f" /> 
+	   <c:inputHidden name="appId" value="#{query.a}" />
+		<c:panelGrid>
+			<c:inputText name="email" label="Email" id="emailLog" />
+			<c:inputSecret name="password" label="Password" />
+
+		</c:panelGrid>
+
+	</form>
+	<div class="separator" />
+
+	<div style="float: left">
+		<a href="javascript:;" class="forgotPass" style="margin-left: 10px"> Forgot Password?</a>
+	</div>
+	<div class="clr" />
+	<iframe name="login-frame" width="0" height="0" style="display: none;" />
+</div>

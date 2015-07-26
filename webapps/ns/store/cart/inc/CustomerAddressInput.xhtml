@@ -1,0 +1,15 @@
+<div title="New Address" xmlns:c="app.ui.faces.component">
+  <c:entityForm id="coAddressForm" entity="BusinessPartnerAddress" style="background-color:#ffffff" successMsg="null" submittable="none" >
+    <c:inputHidden value="#{businessPartnerAddress.businessPartnerId}" default="#{businessPartner.id}"/>
+    <c:inputHidden value="#{businessPartnerAddress.address.id}"/>
+    <c:panelGrid>
+      <c:inputTextarea label="Address" value="#{businessPartnerAddress.address.address}"/>
+      <c:inputText label="Landmark" value="#{businessPartnerAddress.address.landmark}"/>
+      <c:selectOneEntityMenu value="#{businessPartnerAddress.address.area.name}" label="Area" entity="CityArea" filter="cityId=1&amp;orderBy=name"/>
+      <c:selectOneEntityMenu value="#{businessPartnerAddress.address.city.name}" label="City" entity="City" filter="countryId=1&amp;stateId=18" default="1"/>
+      <c:selectOneEntityMenu value="#{businessPartnerAddress.address.state.name}" label="State" entity="State" filter="countryId=1"  default="18"/>
+      <c:selectOneEntityMenu value="#{businessPartnerAddress.address.country.name}" label="Country" entity="Country"  default="1"/>
+      <c:inputText label="Pin" value="#{businessPartnerAddress.address.pinCode}" length="6" regExp="^[0-9]+$"/>
+    </c:panelGrid>
+  </c:entityForm>
+</div>  

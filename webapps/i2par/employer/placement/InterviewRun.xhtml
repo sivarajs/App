@@ -1,0 +1,71 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Event</h1>
+   
+   <c:variable name="employerId" value="#{session.E}"/>
+   
+   
+   
+   <c:entityTable entity="EmployerSchedule" filter="employer.id=#{employerId}" lifeCycle="none">
+        <c:toolbar>
+			<c:toolbarCommand label="Publish To Campus" command="publishCampus" />
+	   	</c:toolbar>
+	 	<c:columns>
+	       <c:column label="Campus" value="#{employerSchedule.placementSchedule.campus.name}" width="250"/>
+	    </c:columns>
+	</c:entityTable>
+	
+	<c:tabs binds="employerSchedule">
+		  <c:tab title="Interview Rounds">
+		  	  <c:entityTable  entity="EmployerInterview" filter="employerScheduleId=#{employerSchedule.id}" lifeCycle="none" autoLoad="false">
+				 	<c:columns>
+				       <c:column label="Description" value="#{employerInterview.description}" width="150"/>
+				    </c:columns>
+ 			 </c:entityTable>
+ 			 
+ 			 <c:entityTable  title="Interview Status" entity="InterviewRoundRunStatus" filter="employerInterviewId=#{employerInterview.id}" lifeCycle="none" autoLoad="false" binds="employerInterview"> 
+				 <c:toolbar>
+					<c:toolbarCommand label="Publish To Students" command="publishStudents" />
+			   	</c:toolbar>
+				<c:columns>
+				       <c:column label="Total Students" value="#{interviewRoundRunStatus.totalStudents}" width="100"/>
+				       <c:column label="Student Appeared" value="#{interviewRoundRunStatus.studentsAppeared}" width="200"/>
+				       <c:column label="Status" value="#{interviewRoundRunStatus.status}" />
+				</c:columns>      
+			</c:entityTable>
+		  </c:tab>
+		  <c:tab title="Students">
+			 <c:entityTable  title="Students" entity="Student" filter="studentRegistration.placementRegistrationId=#{employerSchedule.rfpResponse.rfp.placementRegistration.id}" lifeCycle="none" autoLoad="false">
+				 	<c:columns>
+				       <c:column label="Id" value="#{student.code}" width="150"/>
+				       <c:column label="Name" value="#{student.name}" width="200"/>
+				       <c:column label="Discipline" value="#{student.course1.degree.value} - #{student.course1.discipline.value}" width="200"/>
+				       <c:column label="Resume" value="Resume" href="/student/resume.xhtml?i=#{student.iparId}"/>
+				    </c:columns>
+			</c:entityTable> 
+			<c:entityTable  title="Interview Result" entity="StudentInterviewResult" filter="employerInterview.employerScheduleId=#{employerSchedule.id}&amp;studentInterview.student.id=#{student.id}" lifeCycle="none" autoLoad="false" binds="student"> 
+
+				<c:columns>
+				       <c:column label="Student Id" value="#{studentInterviewResult.studentInterview.student.code}" width="100"/>
+				       <c:column label="Student Name" value="#{studentInterviewResult.studentInterview.student.name}" width="200"/>
+				       <c:column label="Description" value="#{studentInterviewResult.employerInterview.description}" width="200"/>
+				       <c:column label="Result" value="#{studentInterviewResult.selectionState.value}"/>
+				</c:columns>      
+			</c:entityTable>
+			
+			<c:panelGroup binds="studentInterviewResult"> 
+			    <c:entityForm entity="StudentInterviewResult">
+			      <c:inputHidden value="#{studentInterviewResult.studentInterview.id}" />
+			      <c:inputHidden value="#{studentInterviewResult.employerInterview.id}" />	
+			      <c:panelGrid columns="1">
+		 	      	<c:inputText label="Id" value="#{studentInterviewResult.studentInterview.student.code}"/>
+		 	      	<c:inputText label="Name" value="#{studentInterviewResult.studentInterview.student.name}"/>
+		 	      	<c:selectOneEntityMenu label="Result" value="#{studentInterviewResult.selectionState.value}" entity="PropertyGroup" filter="name=student-interview-result"/>
+		 	      	<c:inputText label="Remarks" value="#{studentInterviewResult.remarks}"/>
+		 	      	<c:inputText label="Evaluated By" value="#{studentInterviewResult.evaluatedBy}"/>
+		 	      </c:panelGrid>
+			    </c:entityForm>
+			</c:panelGroup> 								  
+		  </c:tab>
+	</c:tabs>  
+</div>   

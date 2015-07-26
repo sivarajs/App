@@ -1,0 +1,57 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement" xmlns="i2par.campus.placement" xmlns:r="app.domain" xmlns:c="i2par.campus" xmlns:an="app.entity.annotation">
+
+    <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+    <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   	
+   	<xsd:import schemaLocation="../CampusCommon.xsd" namespace="i2par.campus"/>
+   	<xsd:include schemaLocation="Placement.xsd"/>
+   	
+	<xsd:complexType name="PlacementRegistration">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="documentId" type="xsd:string" an:unique="true"/>
+					<xsd:element name="campusId" type="xsd:long" />					
+					<xsd:element ref="placement" />					
+					<xsd:element ref="c:state"/>
+					<xsd:element name="dueDate" type="xsd:date" />
+					<xsd:element name="maxOffers" type="xsd:integer" />
+					<xsd:element name="studentCgpa" type="xsd:boolean"/>
+					<xsd:element ref="c:placementCategory" />
+					<xsd:element name="clauseTemplate" type="xsd:string">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="500" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="clause" type="xsd:string">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="500" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="notificationTemplate" type="xsd:string">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="500" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="notification" type="xsd:string">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="500" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+
+	<xsd:element name="placementRegistration" type="PlacementRegistration"/>
+</xsd:schema>

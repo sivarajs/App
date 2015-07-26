@@ -1,0 +1,47 @@
+<c:template src="/WEB-INF/app/template/EComHome.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="pageTitle" value="Retail App" />
+
+	<c:parameter name="htmlHead">
+	
+         	<link rel="stylesheet" href="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/flexslider.css" type="text/css" media="screen" />
+
+		    <script src="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/jquery.flexslider.js"></script>
+	</c:parameter>
+
+	<c:parameter name="content">
+
+	
+
+		<div class="flexslider">
+          <ul class="slides">
+            <li data-thumb="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_cheesecake_brownie.jpg">
+  	    	    <img src="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_cheesecake_brownie.jpg" />
+  	    		</li>
+  	    		<li data-thumb="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_lemon.jpg">
+  	    	    <img src="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_lemon.jpg" />
+  	    		</li>
+  	    		<li data-thumb="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_donut.jpg">
+  	    	    <img src="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_donut.jpg" />
+  	    		</li>
+  	    		<li data-thumb="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/images/kitchen_adventurer_caramel.jpg">
+  	    	    <img src="/faces/js/thirdparty/jquery/flexslider-2.5.0-3/demo/mages/kitchen_adventurer_caramel.jpg" />
+  	    		</li>
+          </ul>
+        </div>
+
+<script type="text/javascript">
+			(function() {
+				
+				$('.flexslider').flexslider({
+			        animation: "slide",
+			        controlNav: "thumbnails",
+			        start: function(slider){
+			          $('body').removeClass('loading');
+			        }
+			      });
+			})();
+		</script> 
+	</c:parameter>
+
+</c:template>

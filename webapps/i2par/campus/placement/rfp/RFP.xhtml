@@ -1,0 +1,126 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>RFP</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   
+   <c:popup title="Select Employers" id="rfpDispatchPopup">
+	
+		<h3>Employers from Global Database</h3>
+		<c:entityTable id="empTable" entity="Employer" lifeCycle="none" rowSelection="multiple">
+		    <c:columns>
+		       <c:column label="Code" value="#{employer.code}" width="100"/>
+		       <c:column label="Name" value="#{employer.name}" width="400"/>
+		    </c:columns>
+		</c:entityTable>  
+		
+		<h3>Employers from Campus Master Database</h3>
+		<c:entityTable id="cEmpTable" entity="CampusEmployer" filter="campusId=#{campusId}" lifeCycle="none" rowSelection="multiple">
+		    <c:columns>
+		       <c:column label="Name" value="#{campusEmployer.name}" width="300"/>
+		       <c:column label="Search Term" value="#{campusEmployer.searchTerm}"/>
+		    </c:columns>
+		</c:entityTable>  
+	
+	    <h3>Employer Emails</h3>
+	    <div>
+	    	<c:entityForm entity="RfpDispatch" submitButtonLabel="Dispatch" submitButtonStyle="text-align:right;padding:5px 0">
+				<c:inputTextarea name="emails" id="empEmails" style="width:99%;"/>
+			</c:entityForm>	
+		</div>
+	</c:popup>
+   
+   <c:entityTable entity="Rfp" filter="campus.id=#{campusId}">
+   		<c:toolbar>
+			<c:toolbarCommand label="Dispatch" command="dispatch" />
+   		</c:toolbar>
+		<c:popup title="Select" binds="rfp" id="rfpNewPopup">
+			<div style="padding:20px;">
+				Create RFP By:
+				<div style="padding:10px 0 0 30px">
+					<a href="javascript:;" onclick="createRFP(0);">Reference</a>
+					<span> | </span>
+					<a href="javascript:;" onclick="createRFP(1);">Direct</a>
+				</div>
+			</div>
+		</c:popup>
+		
+   		<c:columns>
+		       <c:column label="Document Id" value="#{rfp.documentId}" width="150"/>
+		       <c:column label="Class" value="#{rfp.placement.year}" width="100"/>
+		       <c:column label="Commencement" value="#{rfp.placement.commencement}" width="130"/>
+		       <c:column label="Placement Category" value="#{rfp.placementCategory.value}" width="200"/>
+		       <c:column label="State" value="#{rfp.state.value}"/>
+		</c:columns>
+   		
+   	</c:entityTable>	
+   	
+   	
+   	<div id="rfpContent"></div>
+
+	<script type="text/javascript">
+	<![CDATA[	
+	         
+		function createRFP(type) {
+			document.getElementById("rfpNewPopup").uiComp.hide();
+			loadRfpContent(type == 0, #{campusId}, 0); 
+		}
+		
+		function loadRfpContent(isRfp, campusId, rfpId) {
+			
+			var sc = document.getElementById("rfpContent");
+			if (isRfp) {
+			    if (!sys.isTrue(sc.rfp))   {
+			    	ui.page.section.attachXHtml('campus/placement/rfp/RFPRef.xhtml?campusId=#{campusId}&rfpId='+rfpId,'rfpContent','RFP-Ref')
+					sc.rfp = true;
+			    }
+			}
+			else if  (!sys.isValid(sc.rfp) || sys.isTrue(sc.rfp)) { 
+				if (rfpId == 0)
+		    		ui.messageBox.show("WARNING: In Direct mode, RFP response can not be used for scheduling. Responses are used to generate Standard Master Data. Registration data cannot be used here.");
+				ui.page.section.attachXHtml('campus/placement/rfp/RFPDirect.xhtml?campusId=#{campusId}&rfpId='+rfpId,'rfpContent','RFP-Direct')
+				sc.rfp = false;
+			}
+			$('#rfpTabs').css("display", "");
+			if (rfpId == 0) {
+				//document.getElementById("rfpTabs").uiComp.postEntityNew();
+			}	
+			else {
+				//document.getElementById("rfpTabs").uiComp.postEntityView();
+				//document.getElementById("cpItem").uiComp.load();
+			}
+			
+		}
+
+		function toolbarCommandClicked(nd) {
+			document.getElementById("rfpDispatchPopup").uiComp.show();
+		}
+		
+		function pre_rfpDispatchSave(entity) {
+			entity["rfpId"] = varHeap.get("rfp")["id"];
+			try {
+			   entity["employerIds"] = document.getElementById("empTable").uiComp.getSelectedEntityIds(false);
+			} catch (e) {/*Ignore if no row selected from the table*/}
+		}
+		
+		function post_rfpDispatchSave(entity) {
+			document.getElementById("rfpDispatchPopup").uiComp.hide();
+		}
+		
+		(function() {
+			var popup = document.getElementById("rfpNewPopup")
+			//to avoid displaying the popup on rfp selection. UIComp.binds method won't enable the popup to be shown.
+			popup.set = false;
+			var en = EntityEventName.set("rfp");
+			var cb = function(ae) {
+				//this.source.clear();
+				this.source.uiComp.hide();
+				loadRfpContent(sys.isValid(ae.payload["placementRegistration"]), #{campusId}, ae.payload["id"]);
+			}
+			eventQueue.listener(en, new AppEventListener(en+"rfpP", cb, popup));
+			
+		})();
+	]]>	
+	</script>
+
+</div>   

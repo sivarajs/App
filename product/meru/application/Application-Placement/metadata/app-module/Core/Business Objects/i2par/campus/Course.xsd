@@ -1,0 +1,30 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus" xmlns="i2par.campus" xmlns:r="app.domain">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   	
+	<xsd:complexType name="Course">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="campusId" type="xsd:long" />
+				    <xsd:element ref="degree"/>
+				    <xsd:element ref="discipline"/>
+					<xsd:element ref="educationType"/>
+					<xsd:element name="duration" type="xsd:integer" />
+					<xsd:element ref="timeUnit" />
+				</xsd:sequence>
+				<xsd:attribute name="uniqueKey" default="campusId,degree,discipline"/>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+
+	<xsd:element name="degree" type="r:PropertyGroup"/>
+	<xsd:element name="discipline" type="r:PropertyGroup"/>
+	<xsd:element name="educationType" type="r:PropertyGroup"/>
+	<xsd:element name="timeUnit" type="r:PropertyGroup"/>
+	
+	<xsd:element name="course" type="Course"/>
+</xsd:schema>

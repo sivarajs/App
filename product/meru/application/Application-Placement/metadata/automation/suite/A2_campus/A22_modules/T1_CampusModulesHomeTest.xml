@@ -1,0 +1,11 @@
+<test-suite relativeUrl="campus" name="T1_CampusModulesHomeTest">
+	<test-case name="afterLogin">
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[2]" />
+		<test name="assertModulesContent">
+		 	<assert entity="Title">Campus Admin</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='workArea']/div/div[1]/div[1]/span">Modules</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']"></assert>
+		</test>
+	</test-case>
+	
+</test-suite>

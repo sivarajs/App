@@ -1,0 +1,58 @@
+<div id="header" xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block">
+
+	<div id="topBar">
+		<span class="right">
+
+			<span>Customer Care - 1800-102-0103</span>&amp;nbsp; &amp;nbsp;
+			<b:if condition="#{session.E} == null">
+				<!-- <c:popupLink href="/account/login" src="/account/inc/LoginPopup.xhtml" label="Login"/> &amp;nbsp; | &amp;nbsp; 
+			    <c:popupLink href="/account/register" src="/account/inc/RegisterPopup.xhtml?a=1&amp;r=3" label="Register"/> -->
+
+			    <c:outputLink value="#{application.root}/account/login?a=ns" label="Login" /> &amp;nbsp;  &amp;nbsp; 
+			    <c:outputLink value="#{application.root}/account/register?a=ns&amp;r=202" label="Register" />
+<!-- <a href="/account/a/logout?a=#{application.root}" class="tooltip">Logout<span><strong>Most Light-weight Tooltip</strong><br />Logout</span></a> -->
+			    <b:else>
+					<c:entity name="BusinessPartner" filter="userId=#{session.E}" />
+					<a href="#{application.root}/customer"><c:outputText value="#{businessPartner.name}" /></a> | 
+				    <a href="/account/a/logout?a=#{application.root}" class="tooltip">Logout</a>
+				</b:else>
+			</b:if>
+		</span>
+		<div class="clr"/>
+	</div>
+	<div id="logo">
+	
+	   <a href="#{application.root}" style="float: left"> 
+			<div style="font-size: 30px;">
+				<span>ECom</span>
+			</div>
+		</a>
+		<div class="searchBoxHolder">
+			<c:include src="/WEB-INF/app/inc/SearchBox.xhtml" />
+		</div>
+	    <div class="cartIconCon">
+			<a href="#{application.root}/store/cart"><span class="cartIcon"></span> Cart (<span class="scCount">0</span>) </a>
+		</div>
+		<div class="clr" />
+	    
+	</div>
+	<div id="mainNav">
+	   
+	   <div class="catCon">
+	     <div class="cat">
+	        Category
+	        <span>&#x25bc;</span>
+	     </div>  
+	     <c:navEntityTree id="navTree" entity="ProductCategory" filter="isActive=Y&amp;orderBy=sortOrder" href="/category#{qName}" numItems="16"/>
+	   </div>
+	   
+	   <ul>
+	     <li>Offers</li>
+	     <li>|</li>
+	     <li>New Arrivals</li>
+	   </ul>
+	   <div class="clr"/>
+	      
+	</div>
+
+</div>

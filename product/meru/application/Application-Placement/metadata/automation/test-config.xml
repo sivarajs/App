@@ -1,0 +1,25 @@
+<test-app baseURL="localhost:8080/i2par" basePackage="meru.automation.placement">
+    <!-- ADMIN -->
+    <test-suite-ref src="suite/A1_admin/setup/T1_AdminTest.xml" />
+    <test-suite-ref src="suite/A1_admin/setup/T2_UniversityTest.xml" />
+    <test-suite-ref src="suite/A1_admin/setup/T3_CampusTest.xml" />
+
+    <!-- CAMPUS -->
+    <!-- Setup -->
+    <test-suite-ref src="suite/A2_campus/A21_setup/T1_CampusHomeTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A21_setup/T2_UpdateCampusTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A21_setup/T3_CreateCourseCurriculumsTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A21_setup/T4_CreateCampusProgramTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A21_setup/T5_CreateCampusVenueTest.xml" />
+
+    <!-- Modules -->
+    <test-suite-ref src="suite/A2_campus/A22_modules/T1_CampusModulesHomeTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T2_CreatePlacementTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T3_CreatePlacementRegistrationTest.xml" />
+    
+    <test-suite-ref src="suite/A2_campus/A22_modules/T4_RegisterStudentTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T5_CreateRFPTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T6_AcceptRFPGmailEmployerTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T7_AcceptRFPYahooEmployerTest.xml" />
+    <test-suite-ref src="suite/A2_campus/A22_modules/T8_CreatePlacementScheduleTest.xml" />
+</test-app>

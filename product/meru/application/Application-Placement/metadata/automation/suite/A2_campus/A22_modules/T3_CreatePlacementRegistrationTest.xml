@@ -1,0 +1,78 @@
+<test-suite relativeUrl="campus" name="T3_CreatePlacementRegistrationTest">
+
+    <test-case name="selectPlacementRegistrationTreeItem">
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[2]" />
+		<input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[2]/ul/li[2]/div/div[1]"/>
+		<test name="assertTitle">
+		   <assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">PLACEMENT REGISTRATION</assert>
+		</test>
+	</test-case>
+ 	<test-case name="newRegistration">
+	    <input type="click" xpath=".//*[@id='placementRegistrationTable']/div[1]/div[1]/div[1]" />
+ 	    <input type="click" xpath=".//*[@id='regForm']/div[1]/div[1]/div[2]/input"/>
+ 	    <input type="click" xpath=".//*[@id='placementTable']/div[2]/table/tbody/tr"/>
+	    <input type="text" xpath=".//*[@id='regForm']/div[1]/div[2]/div[2]/input">31-10-2014</input>
+	    <input type="text" xpath=".//*[@id='maxOffers']">2</input>
+	    <input type="text" xpath=".//*[@id='regForm']/div[1]/div[4]/div[2]/select">61</input>
+	    <input type="click" xpath=".//*[@id='placementRegistrationSubmit']" />
+ 	    <test name="assertTitle">
+	       <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='regForm']/div[1]/div[1]/div[2]/input">2015</assert>
+	       <assert entity="Text" operation="Equals" xpath=".//*[@id='placementRegistrationTable']/div[3]/table/tbody/tr/td[2]/div">2015</assert> 
+	    </test>
+	</test-case>
+    
+    <test-case name="newStudent1">
+        <input type="click" xpath=".//*[@id='placementRegistration-StudentTab']/a" />
+        <input type="click" xpath=".//*[@id='stuTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[1]/div[2]/input">StudentId1</input>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[2]/div[2]/input">Student1</input>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[3]/div[2]/input">sivarajs@gmail.com</input>
+        <input type="click" xpath=".//*[@id='stuForm']/div[1]/div[4]/div[2]/input" />
+        <input type="click" xpath=".//*[@id='course1Table']/div[2]/table/tbody/tr[1]" />
+        <input type="text" xpath=".//*[@id='stuCgpa']">7</input>
+        <input type="click" xpath=".//*[@id='studentSubmit']" />
+        <test name="assertTitle">
+           <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='degree1']">BE - Computer Science</assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr/td[1]/div">StudentId1</assert> 
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr/td[2]/div">Student1</assert> 
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr/td[3]/div">sivarajs@gmail.com</assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr/td[4]/div"></assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr/td[5]/div">New</assert>
+        </test>
+    </test-case>
+    <test-case name="newStudent2">
+        <input type="click" xpath=".//*[@id='placementRegistration-StudentTab']/a" />
+        <input type="click" xpath=".//*[@id='stuTable']/div[1]/div[1]/div[1]/span"/>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[1]/div[2]/input">StudentId2</input>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[2]/div[2]/input">Student2</input>
+        <input type="text" xpath=".//*[@id='stuForm']/div[1]/div[3]/div[2]/input">sivarajsk@yahoo.com</input>
+        <input type="click" xpath=".//*[@id='stuForm']/div[1]/div[4]/div[2]/input" />
+        <input type="click" xpath=".//*[@id='course1Table']/div[2]/table/tbody/tr[1]/td[1]/div" />
+        <input type="text" xpath=".//*[@id='stuCgpa']">8</input>
+        <input type="click" xpath=".//*[@id='studentSubmit']" />
+        <test name="assertTitle">
+           <assert entity="Attribute" name="value" operation="Equals" xpath=".//*[@id='degree1']">BE - Computer Science</assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[1]/div">StudentId2</assert> 
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[2]/div">Student2</assert> 
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[3]/div">sivarajsk@yahoo.com</assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[4]/div"></assert>
+           <assert entity="Text" operation="Equals" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[5]/div">New</assert>
+        </test>
+    </test-case>
+    
+    <test-case name="generateI2parIds">
+       <input type="click" xpath=".//*[@id='stuTable']/div[1]/div[1]/div[4]/span" />
+       <test name="assert I2Par Ids in the student table">
+           <assert entity="Text" operation="NotNull" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[1]/td[4]/div"/>
+           <assert entity="Text" operation="NotNull" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[4]/div"/>
+       </test>
+    </test-case>
+    
+    <test-case name="rollOutRegistration">
+       <input type="click" xpath=".//*[@id='placementRegistrationTable']/div[1]/div[1]/div[4]" />
+       <test name="assert Registration Form and State in the registration table">
+          <!-- <assert entity="Text" operation="NotNull" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[1]/td[4]/div"/>
+           <assert entity="Text" operation="NotNull" xpath=".//*[@id='stuTable']/div[3]/table/tbody/tr[2]/td[4]/div"/> -->
+       </test>
+    </test-case>
+ </test-suite>

@@ -1,0 +1,138 @@
+<div xmlns:c="app.ui.faces.component">
+	<div class="invoiceTitle">Invoice</div>
+
+	<c:entity name="Enterprise" entityId="1" />
+	<c:entity name="EnterpriseAddress" filter="enterpriseId=1&amp;isPrimary=Y" />
+	<div class="companyAddress">
+		<p>#{enterprise.name}</p>
+		<p>#{enterpriseAddress.address.address}, #{enterpriseAddress.address.area.name}, #{enterpriseAddress.address.city.name}, #{enterpriseAddress.address.state.name}
+			#{enterpriseAddress.address.country.name} - #{enterpriseAddress.address.pinCode}</p>
+	</div>
+
+	<c:entity name="SalesInvoice" filter="salesOrder.id=#{query.orderId}" />
+	<div>
+		<div class="customerAddress">
+			<p>#{salesInvoice.salesOrder.customer.name}</p>
+			<p>#{salesInvoice.salesOrder.delivery.address.address.address}, #{salesInvoice.salesOrder.delivery.address.address.area.name}, #{salesInvoice.salesOrder.delivery.address.address.city.name},
+				#{salesInvoice.salesOrder.delivery.address.address.state.name} #{salesInvoice.salesOrder.delivery.address.address.country.name} - #{salesInvoice.salesOrder.delivery.address.address.pinCode}</p>
+		</div>
+		<div class="invoiceInfo">
+		   <table>
+		     <tr>
+		       <td align="right">Invoice No. :</td>
+		       <td>#{salesInvoice.number}</td>
+		     </tr>
+		     <tr>
+		       <td align="right">Date :</td>
+		       <td>#{salesInvoice.salesOrder.placedOn}</td>
+		     </tr>
+		     <tr>
+		       <td align="right">TIN :</td>
+		       <td>#{enterprise.tin}</td>
+		     </tr>
+		   </table>
+		</div>
+		<div class="clr"/>
+	</div>
+
+	<c:entityTable entity="SalesOrderLineItem" filter="salesOrderId=#{salesInvoice.salesOrder.id}" numberable="true" lifeCycle="none">
+	  <c:columns>
+	     <c:column label="Code" value="#{salesOrderLineItem.productLineItem.code}" width="60"/>
+	     <c:column label="Description" value="#{salesOrderLineItem.productLineItem.product.name}" />
+	     <c:column label="Quantity" value="#{salesOrderLineItem.quantity}" width="80" align="right"/>
+	     <c:column label="Price" value="#{salesOrderLineItem.unitPrice}" width="80" align="right"/>
+	     <c:column label="Total" value="#{salesOrderLineItem.totalPrice}" width="80" align="right" style="border:0"/>
+	  </c:columns>
+	
+	</c:entityTable>
+	
+	
+    <div style="float:right" class="priceSummary"> 
+        
+        <table cellspacing="0" cellpadding="0">
+		     <tr>
+		       <td align="right">Net Value</td>
+		       <td align="right"> #{salesInvoice.salesOrder.amount}</td>
+		     </tr>
+		     <tr>
+		       <td align="right">1% VAT</td>
+		       <td align="right"> </td>
+		     </tr>
+		     <tr>
+		       <td align="right" class="last">Total</td>
+		       <td align="right" class="last">#{salesInvoice.salesOrder.amount}</td>
+		     </tr>
+		   </table>
+    </div>
+    <div class="clr"/>
+    
+    
+    <div class="foot">
+      <div class="cName">
+           #{enterprise.name}
+       </div>
+       <div class="authSign">
+           <div class="authSignContent">
+              Authorized Signatory
+           </div>
+       </div>
+       <div class="clr"/>
+    </div>
+
+
+	<!-- <div style="border-bottom:1px #cccccc solid;margin-bottom:5px;">
+         <div style="width:150px;float:left;">
+           <img src="/common/img/slogo.jpg"/>
+         </div>  
+         <div style="float:left;">
+           <p>DewBag Retail Private Limited</p>
+           <p>138/13 1st Cross, NS Palaya,Bannerghatta Road,Bangalore - 560078. Phone - 2678 0209</p>
+           <p>TIN : 29550684384</p>
+         </div>
+         <div class="clr"/>
+       </div>
+       
+       <div>
+         <c:entity columns="1" name="SalesInvoice" filter="salesOrder.id=#{query.orderId}">
+           <div style="float:left">
+             <p>Invoice No. : <c:outputText label="Invoice Id" value="#{salesInvoice.number}"/></p>
+             <p>Invoice Date : #{salesInvoice.salesOrder.placedOn}</p>
+             <p>Order No. : <c:outputText label="Order Id" value="#{salesInvoice.salesOrder.orderId}"/></p>
+             <p>Delivery Date : #{salesInvoice.salesOrder.deliveryDate}</p>
+             <p>Delivery Slot : #{salesInvoice.salesOrder.deliverySlot.startTime} #{salesInvoice.salesOrder.deliverySlot.startAmPm} - #{salesInvoice.salesOrder.deliverySlot.endTime} #{salesInvoice.salesOrder.deliverySlot.endAmPm}</p>
+           </div>
+           <div style="float:right;">
+                <h3>Delivery Address</h3>
+                
+                    <p>#{salesInvoice.salesOrder.customer.name}</p> 
+                    <p>#{salesInvoice.salesOrder.deliveryAddress.address1}, #{salesInvoice.salesOrder.deliveryAddress.address2}</p>
+                    <p>#{salesInvoice.salesOrder.deliveryAddress.area}</p>
+                    <p>#{salesInvoice.salesOrder.deliveryAddress.landmark}</p>
+                    <p>#{salesInvoice.salesOrder.deliveryAddress.city}, #{salesInvoice.salesOrder.deliveryAddress.state}, #{salesInvoice.salesOrder.deliveryAddress.country} - #{salesInvoice.salesOrder.deliveryAddress.pin}</p>
+                    
+                    <p><span>Mobile : #{salesInvoice.salesOrder.customer.mobile}</span> <c:outputText value="  Phone : " rendered="#{invoice.salesOrder.customer.landline} != null"/><c:outputText value="#{salesInvoice.salesOrder.customer.landline}" rendered="#{invoice.salesOrder.customer.landline} != null"/></p>
+          </div>
+         </c:entity>          
+      </div>    
+           
+     <div style="clear:both"/>
+     
+     <div>
+       <c:entityTable entity="SalesOrderLineItem" filter="orderId=#{query.orderId}" numberable="true" lifeCycle="none" removeable="false" contentStyle="max-height:10000px">
+     
+           <c:columns>
+             <c:column label="Product" value="#{salesOrderLineItem.productLineItem.product.brand} #{salesOrderLineItem.productLineItem.product.name} #{salesOrderLineItem.productLineItem.quantity} #{salesOrderLineItem.productLineItem.unitOfMeasure.value}" sortable="true" 
+                href="/product#{salesOrderLineItem.productLineItem.product.productCategory.qualifiedName}/#{salesOrderLineItem.productLineItem.product.brand}~#{salesOrderLineItem.productLineItem.product.name}/#{salesOrderLineItem.productLineItem.quantity} #{salesOrderLineItem.productLineItem.unitOfMeasure.value}" />             
+             <c:column label="Quantity" value="#{salesOrderLineItem.quantity}" width="70" sortable="true" />
+             <c:column label="MRP" value="#{salesOrderLineItem.unitMrp}" width="70"/>
+             <c:column label="Discount" value="#{salesOrderLineItem.discount}#{salesOrderLineItem.discountType.value}" width="70"/>
+             <c:column label="Unit Price" value="#{salesOrderLineItem.unitPrice}" width="70"/>
+             <c:column label="Tax Rate" value="#{salesOrderLineItem.taxRate}" width="50"/>
+             <c:column label="Total Price" value="#{salesOrderLineItem.totalPrice}" width="70"/>
+           </c:columns>
+           
+         </c:entityTable>    
+     </div>  
+     
+     <c:orderFooter/> -->
+</div>

@@ -1,0 +1,23 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Placement Event</h1>
+   
+   <c:variable name="employerId" value="#{session.EID}"/>
+   
+   <c:entityTable entity="EmployerSchedule" filter="employer.id=#{employerId}" lifeCycle="none">
+		 	<c:columns>
+		       <c:column label="Campus" value="#{employerSchedule.placementSchedule.campus.name}" width="250"/>
+		    </c:columns>
+	</c:entityTable>
+
+	<c:entityTable  title="Interview Schedule" entity="EmployerInterviewSchedule" filter="employerScheduleId=#{employerSchedule.id}" lifeCycle="none" autoLoad="false" binds="employerSchedule">
+		 	<c:columns>
+		       <c:column label="Description" value="#{employerInterviewSchedule.description}" width="250"/>
+		       <c:column label="Venue" value="#{employerInterviewSchedule.campusVenue.name}" width="250"/>
+		       <c:column label="Date" value="#{employerInterviewSchedule.date}" width="100"/>
+		       <c:column label="Time" value="#{employerInterviewSchedule.time}" width="100"/>
+		       <c:column label="Duration" value="#{employerInterviewSchedule.duration}" />
+		    </c:columns>
+	</c:entityTable>
+	
+</div>   

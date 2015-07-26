@@ -1,0 +1,22 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>User</h1>
+   
+   <c:entityTable entity="User">
+    <c:columns>
+       <c:column label="Name" value="#{user.name}" width="200"/>
+       <c:column label="Role" value="#{user.primaryRole.name}" />
+    </c:columns>
+  </c:entityTable>  
+    
+  <c:panelGroup title="Information" binds="user">
+    <c:entityForm entity="User">
+      <c:inputHidden value="#{user.state}" default="A"/>
+      <c:panelGrid columns="1">
+        <c:inputText label="Name" value="#{user.name}"/>
+		<c:inputSecret label="Password" value="#{user.password}"/>
+		<c:selectOneEntityMenu label="Role" value="#{user.primaryRole.name}" entity="Role"/>
+      </c:panelGrid>
+    </c:entityForm>
+  </c:panelGroup>  
+</div>

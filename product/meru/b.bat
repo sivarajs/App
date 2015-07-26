@@ -1,0 +1,6 @@
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\platform\app\App-Server\1.0-SNAPSHOT\App-Server-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\designer\WEB-INF\lib
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\platform\app\App-Server\1.0-SNAPSHOT\App-Server-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\account\WEB-INF\lib
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\platform\app\App-Server\1.0-SNAPSHOT\App-Server-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\i2par\WEB-INF\lib
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\application\Application-Placement\1.0-SNAPSHOT\Application-Placement-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\i2par\WEB-INF\lib
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\platform\app\App-Server\1.0-SNAPSHOT\App-Server-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\ns\WEB-INF\lib
+copy C:\Users\ssubbaiy.ORADEV\.m2\repository\meru\application\Application-ECom\1.0-SNAPSHOT\Application-ECom-1.0-SNAPSHOT-jar-with-dependencies.jar D:\application\apache-tomcat-8.0.15\webapps\ns\WEB-INF\lib

@@ -1,0 +1,243 @@
+<div xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block">
+  
+  <h1>Placement Registration</h1>
+   
+   <c:variable name="campusId" value="#{session.E}"/>
+   <c:entity name="CampusProgram" filter="campusId=#{campusId}&amp;program.id=12"/>
+   
+   <c:entityTable entity="PlacementRegistration" filter="campusId=#{campusId}">
+   	<c:toolbar>
+			<c:toolbarCommand label="Rollout" command="rollout" />
+			<c:toolbarSeparator />
+	</c:toolbar>
+   
+    <c:columns>
+       <c:column label="Document Id" value="#{placementRegistration.documentId}" width="150"/>
+       <c:column label="Class" value="#{placementRegistration.placement.year}" width="100"/>
+       <c:column label="Commencement" value="#{placementRegistration.placement.commencement}" width="130"/>
+       <c:column label="Placement Category" value="#{placementRegistration.placementCategory.value}" width="200"/>
+       <c:column label="State" value="#{placementRegistration.state.value}" contentClass="entityState"/>
+    </c:columns>
+   </c:entityTable>  
+   <c:tabs binds="placementRegistration">
+   	  <c:tab title="Information">
+		<c:entityForm entity="PlacementRegistration" id="regForm">
+		    <c:inputHidden value="#{placementRegistration.campusId}" default="#{campusId}"/>
+			<c:inputHidden value="#{placementRegistration.state.id}" default="501" />
+			<c:inputHidden value="#{placementRegistration.documentId}" />
+			<c:inputHidden value="#{placementRegistration.clauseTemplate}" id="clauseTemplate"/>
+			<c:inputHidden value="#{placementRegistration.notificationTemplate}" id="ntfnTemplate"/>
+			<c:inputHidden value="#{placementRegistration.placement.id}" id="placementId" />
+		    <c:panelGrid columns="1">
+		        <c:selectOneEntityPopup label="Placement" value="#{placementRegistration.placement.year}">
+		           <c:popup title="Select Placement Hierarchy">
+		        	 <c:entityTable entity="Placement" filter="campusId=#{campusId}&amp;state.value=Active" lifeCycle="none">
+					    <c:columns>
+					       <c:column label="Class" value="#{placement.year}" width="100"/>
+					       <c:column label="Academic Start" value="#{placement.academicStart}" width="150"/>
+					       <c:column label="Academic End" value="#{placement.academicEnd}" width="150"/>
+					       <c:column label="Rollout Start" value="#{placement.rolloutStart}" width="150"/>
+					       <c:column label="Rollout End" value="#{placement.rolloutEnd}" width="150"/>
+					       <c:column label="Commencement" value="#{placement.commencement}" width="150"/>
+					    </c:columns>
+					   </c:entityTable>
+					</c:popup>    
+		        </c:selectOneEntityPopup>
+		      	<c:inputDate label="Due Date" value="#{placementRegistration.dueDate}"
+					onchange="onDueDateChange(this.value)" />
+
+				<c:inputText id="maxOffers" label="Maximum Offers" value="#{placementRegistration.maxOffers}"
+					onchange="onNoOfOffersChange(this.value)" />
+					
+				<c:selectOneEntityMenu label="Placement Category" value="#{placementRegistration.placementCategory.value}" entity="PropertyGroup" filter="name=placement-category"/>
+				<c:selectBooleanCheckBox label="Set CGPA/Discipline By Student"
+					value="#{placementRegistration.studentCgpa}" />
+					
+				<c:inputTextarea id="regClause" label="Clause" value="#{placementRegistration.clause}" />
+				<c:inputTextarea id="regNtfn" label="Notification" value="#{placementRegistration.notification}" />	
+
+		    </c:panelGrid>
+		  </c:entityForm>
+	  </c:tab>	
+	  <c:tab title="Student">
+	  	 <c:entityTable id="stuTable" entity="Student" filter="studentRegistration.placementRegistrationId=#{placementRegistration.id}" autoLoad="false">
+	  	    <c:toolbar>
+		    	<c:toolbarCommand label="Generate I2Par IDs" command="generateI2ParIds" />
+				<c:toolbarSeparator />
+			</c:toolbar>	
+		    <c:columns>
+		       <c:column label="Id" value="#{student.code}" width="150"/>
+		       <c:column label="Name" value="#{student.name}" width="200"/>
+		       <c:column label="Email" value="#{student.email}" width="200"/>
+		       <c:column label="I2Par Id" value="#{student.iparId}" width="200"/>
+		       <c:column label="State" value="#{student.studentRegistration.state.value}" width="200"/>
+		    </c:columns>
+		 </c:entityTable>
+		 <c:panelGroup binds="student">  
+		 	<c:entityForm entity="Student" id="stuForm">
+		    	<c:inputHidden value="#{student.campusId}" default="#{campusId}"/>
+		    	<c:inputHidden value="#{student.studentRegistration.placementRegistrationId}" default="#{placementRegistration.id}"/>
+				<c:inputHidden value="#{student.studentRegistration.state.id}" default="551" />
+				<c:inputHidden value="#{student.course1.id}" id="course1Id"/>
+				<c:inputHidden value="#{student.course2.id}" id="course2Id"/>
+				<c:inputHidden value="#{student.iparId}"/>
+				<c:panelGrid columns="1">
+					<c:inputText label="Id" value="#{student.code}" />
+					<c:inputText label="Name" value="#{student.name}" />
+					<c:inputText label="Email" value="#{student.email}" />
+					
+					<c:selectOneEntityPopup label="Degree1" value="#{student.course1.degree.value} - #{student.course1.discipline.value}" selectedEntity="course1" id="degree1" req="false">
+			           <c:popup title="Select Degree">
+			        	 <c:entityTable entity="Course" filter="campusId=#{campusId}" lifeCycle="none" var="course1">
+						    <c:columns>
+						       <c:column label="Degree" value="#{course.degree.value}" width="250"/>
+						       <c:column label="Discipline" value="#{course.discipline.value}" width="250"/>
+						       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+						       <c:column label="Duration" value="#{course.duration}" width="100"/>
+						       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+						    </c:columns>
+						   </c:entityTable> 
+						</c:popup>    
+			        </c:selectOneEntityPopup>
+			        
+			        <b:if condition="#{campusProgram} != null">
+				        <c:selectOneEntityPopup label="Degree2" value="#{student.course2.degree.value} - #{student.course2.discipline.value}" selectedEntity="course2"  id="degree2" req="false">
+				           <c:popup title="Select Degree">
+				        	 <c:entityTable entity="Course" filter="campusId=#{campusId}" lifeCycle="none" var="course2">
+							    <c:columns>
+							       <c:column label="Degree" value="#{course.degree.value}" width="250"/>
+							       <c:column label="Discipline" value="#{course.discipline.value}" width="250"/>
+							       <c:column label="Education Type" value="#{course.educationType.value}" width="150"/>
+							       <c:column label="Duration" value="#{course.duration}" width="100"/>
+							       <c:column label="Time Unit" value="#{course.timeUnit.value}" />
+							    </c:columns>
+							   </c:entityTable> 
+							</c:popup>    
+				        </c:selectOneEntityPopup>
+			        </b:if>
+					<c:inputDecimal label="CGPA/Percentage" value="#{student.score}" id="stuCgpa"/>
+				</c:panelGrid>
+		    </c:entityForm>
+		    
+		 </c:panelGroup>   
+		 
+	  </c:tab>
+	</c:tabs>	      	
+	
+	<script type="text/javascript">
+	<![CDATA[	
+		function post_placementRegistrationNew() {
+			
+			$("#regForm")[0].uiComp.enableInputs();
+			var e = entityStore.getFirst("Property", "ownerId=#{campusId}&category=campus&name=registration-clause");
+			
+			var n = document.getElementById("regClause");
+			n.value = e['value'];
+			document.getElementById("clauseTemplate").value = e['value'];
+			
+			n = document.getElementById("regNtfn"); 
+			e = entityStore.getFirst("Property", "ownerId=#{campusId}&category=campus&name=registration-notification");
+			n.value = e['value'];
+			document.getElementById("ntfnTemplate").value = e['value'];
+		}
+		
+		function post_placementRegistrationView(reg) {
+			if (reg["state"]["value"] != "New")  {
+				if ($("#stuForm")[0])
+					$("#stuForm")[0].uiComp.disableInputs();
+				if ($("#regForm")[0])
+				    $("#regForm")[0].uiComp.disableInputs();
+				$(".toolbar","#stuTable").hide();
+			}
+			else {
+				$("#regForm")[0].uiComp.enableInputs();
+				$(".toolbar","#stuTable").show();
+			}
+		}
+		
+		function updateRegistrationState(state) {
+			var selectedRow = document.getElementById("placementRegistrationTable").uiComp.getSelectedRow();
+			var tdDiv = $("div.entityState",selectedRow);
+			$(tdDiv).html(state);
+		}
+		
+		function post_studentNew() {
+			var placementReg = varHeap.get("placementRegistration");
+			updateStudentForm(placementReg);
+		}
+		
+		function post_studentView() {
+			var placementReg = varHeap.get("placementRegistration");
+			
+			if (placementReg["state"]["value"] != "New") {
+				$("#stuForm")[0].uiComp.disableInputs();
+				$(".toolbar","#stuTable").css("display","none");
+			}
+			else updateStudentForm(placementReg);
+		}	
+		
+		function updateStudentForm(reg) {
+			
+			if (reg["state"]["value"] == "New") {
+				$("#stuForm")[0].uiComp.enableInputs();
+				$(".toolbar","#stuTable").css("display","");
+			}
+			
+			var isCgpa = reg["studentCgpa"] == "Y";
+			
+			document.getElementById("degree1").disabled = isCgpa;
+			if (document.getElementById("degree2")) 
+				document.getElementById("degree2").disabled = isCgpa;
+			document.getElementById("stuCgpa").disabled = isCgpa;
+			
+ 		}
+		
+		
+		function on_placementSelect(entity) {
+			var ro = entity['commencement'] + "  :  " + entity['rolloutEnd'];
+			var ta = document.getElementById("clauseTemplate");
+			ta.rollout = ro;
+			ta.joingPeriod = entity['joiningPeriod'];
+			onNoOfOffersChange();
+		}
+		
+		function onNoOfOffersChange(value) {
+			var ta = document.getElementById("clauseTemplate");
+			var clause = ta.value;
+			var object = {};
+			object['Placement Period'] = ta.rollout;
+			var mo = document.getElementById("maxOffers");
+			if (sys.isValid(mo.value)) object['No of Offers'] = mo.value;
+			else object['No of Offers'] = "0";
+			document.getElementById("regClause").value = el.substitute(clause, object); 
+		}
+		
+		function onDueDateChange(value) {
+			var ta = document.getElementById("ntfnTemplate");
+			var ntfn = ta.value;
+			var object = {};
+			object['Due date'] = value;
+			object['Due time'] = "11:59 PM";
+			document.getElementById("regNtfn").value = el.substitute(ntfn, object); 
+		}
+
+		function toolbarCommandClicked(nd) {
+			
+			var cmd = nd.getAttribute("command");
+			if (cmd != null) {
+				try {
+				var entity = ui.action.actOnEntity("PlacementRegistration", "placementRegistration",cmd);
+				if (cmd == "generateI2ParIds") { 
+					document.getElementById("stuTable").uiComp.load();
+				}		
+				else if (cmd == "rollout") {
+				   post_placementRegistrationView(entity);
+				   updateRegistrationState(entity["state"]["value"]);
+				}
+				} catch (e){alert(e)}
+			}
+		}
+	]]>	
+	</script>
+	
+</div>   

@@ -1,0 +1,44 @@
+
+#student .panelGroup .panelHead {
+	border:0;
+	border-bottom: 1px #efefef solid;
+	background: none;
+	padding: 7px 0;
+}
+
+#student .panelContent {
+	border:none;
+}	
+
+#student .dataTable {
+	border: none;
+}
+
+#student .dataTable .titleBar {
+	padding: 7px 0;
+	background: none;
+	border-bottom: 1px #cccccc solid;
+	margin-bottom:5px;
+}
+
+#student .dataTable .columns {
+	border: 1px #efefef solid;
+	background: none;
+}
+
+#student .dataTable .column div {
+	font-weight: bold;
+}
+
+#student .toolbar {
+	border: 0;
+}
+
+#student .toolbar .buttons {
+	background-color: #ffffff;
+}
+
+#student .toolbarSeparator {
+	border:0;
+}
+

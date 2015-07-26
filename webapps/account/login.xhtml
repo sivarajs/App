@@ -1,0 +1,36 @@
+<c:template src="/WEB-INF/app/template/Account.xml" xmlns:c="app.ui.faces.component">
+
+	<c:parameter name="content">
+		<h2>Login</h2>
+		<div>
+			<div id="err" style="color: red"></div>
+			<form method="post" action="/account/a/login?a=#{query.a}">
+				<c:inputHidden name="appId" value="#{query.a}" />
+				<div>
+					<label for="ui">User Id:</label> <input id="ui" name="email" type="text" />
+				</div>
+				<div>
+					<label for="pw">Password:</label> <input type="password" id="pw" name="password" />
+				</div>
+
+				<div>
+					<input type="submit" value="Login" class="formSubmitInput" />
+				</div>
+
+			</form>
+		</div>
+
+		<script type="text/javascript">
+			(function() {
+
+				if (window.location.href.indexOf('&amp;i') != -1)
+					document.getElementById("err").innerHTML = "Invalid user name or passwrod";
+				
+			})();
+		</script>
+
+	</c:parameter>
+</c:template>
+
+
+

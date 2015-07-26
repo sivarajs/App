@@ -1,0 +1,20 @@
+<c:template src="/WEB-INF/app/template/ECom.xml" xmlns:c="app.ui.faces.component">
+
+  <c:variable name="page.title" value="Fresh and quality products at the best price"/>
+
+  <c:parameter name="content">
+     <h1>Shopping Cart</h1>
+       
+       <c:include src="/store/cart/inc/Cart.xhtml"/>
+       
+       <div class="clr"/>
+       <div class="ralign" style="margin-top:10px;">
+ 	 	
+ 			<span class="commandButton noMargin rfloat" onclick="shoppingCart.checkout()">Place Order</span>
+
+ 		</div>
+       
+       <div class="clr"/>
+
+  </c:parameter>
+</c:template>

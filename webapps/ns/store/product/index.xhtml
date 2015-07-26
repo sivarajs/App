@@ -1,0 +1,74 @@
+<c:template src="/WEB-INF/app/template/ECom.xml" xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block">
+
+	<c:variable name="pageTitle" value="Retail App" />
+
+    <c:parameter name="htmlHead">
+
+	</c:parameter>	
+
+	<c:parameter name="content">
+
+        <h1>#{productLineItem.product.name}</h1>
+
+		<c:breadCrumb type="category" path="#{productLineItem.product.productCategory.qualifiedName}"
+			suffix="#{productLineItem.product.name} #{productLineItem.quantity} #{productLineItem.unitOfMeasure.value}" />
+
+        <div>
+               <div style="float: left;position:relative">
+  
+<!--                <c:imageGallery id="slider1_container" entity="ProductLineItemImage" filter="entityId=#{productLineItem.id}&amp;productId=#{productLineItem.product.id}&amp;size=300x300">
+ -->                <c:imageGallery id="slider1_container" entity="ProductLineItemImage" filter="entityId=#{productLineItem.id}&amp;productId=#{productLineItem.product.id}&amp;size=300x300" imgHeight="300" imgWidth="310"
+				          style="width:380px;" tnSize="150x150" imgSize="300x300" />
+
+                </div>
+
+
+		  		<div class="prodInfo">
+					<div class="prdName">#{productLineItem.product.name}</div>
+					<div>Product Code : #{productLineItem.code}</div>
+					<div>#{productLineItem.product.shortDescription}</div>
+		
+					<div class="prdPrice">
+						Rs.
+						<c:outputText value="#{productLineItem.mrp}" />
+					</div>
+		
+		            <div style="margin-top: 20px">
+						<c:include src="/store/product/inc/Buy.xhtml"/>
+					</div>
+		
+					<div>
+		
+						<b:foreach entity="ProductFeatureValue" filter="ownerId=#{productLineItem.id}&amp;ownerType=PL&amp;orderBy=sortOrder">
+							<div class="prdPriceBreakup">
+								<div class="prdPriceAttr">#{productFeatureValue.rowAttributeName}</div>
+								<div class="prdPriceAttrVal">Rs. #{productFeatureValue.value}</div>
+							</div>
+						</b:foreach>
+						<div class="clr" />
+					</div>
+					
+					<div>
+		
+						<b:foreach entity="ProductFeatureValue" filter="ownerId=#{productLineItem.id}&amp;ownerType=PL&amp;orderBy=sortOrder">
+							<div class="prdPriceBreakup">
+								<div class="prdPriceAttr">#{productFeatureValue.rowAttributeName}</div>
+								<div class="prdPriceAttrVal">Rs. #{productFeatureValue.value}</div>
+							</div>
+						</b:foreach>
+						<div class="clr" />
+					</div>
+					
+		
+				</div>
+				<div class="clr" />
+		</div>		
+		<script type="text/javascript">
+			(function() {
+				initBuyButtons();
+			})();
+		</script> 
+
+	</c:parameter>
+
+</c:template>

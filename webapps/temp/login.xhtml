@@ -1,0 +1,26 @@
+<c:template src="WEB-INF/template/App.xml" xmlns:c="app.ui.faces.component">
+
+  <c:variable name="page.title" value="Fresh and quality products at the best price"/>
+
+  <c:parameter name="content">
+     <div style="width:47%;float:left;">
+        <c:include src="/inc/LoginPanel.xhtml"/>
+     </div>
+      
+     <div style="width:47%;margin-left:10px;float:left;">
+      <table style="width:100%">
+       <tr valign="middle">
+        <td width="19">OR</td>
+        <td style="padding-left:10px">
+          <c:include src="/inc/RegisterPanel.xhtml"/>
+        </td>
+        </tr>  
+       </table>
+     </div>  
+     <script type="text/javascript">
+      (function() {
+        document.getElementById("emailLog").focus();
+      })();
+    </script> 
+  </c:parameter>
+</c:template>

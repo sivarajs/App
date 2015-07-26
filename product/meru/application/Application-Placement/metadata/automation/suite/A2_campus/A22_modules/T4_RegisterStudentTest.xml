@@ -1,0 +1,29 @@
+<test-suite relativeUrl="student" name="T4_RegisterStudentTest">
+
+    <test-case name="loginToStudent1Home">
+       <!-- Logout -->
+		<input type="click" xpath=".//*[@id='header']/div[2]/a" />
+        <input type="text" xpath=".//*[@id='ui']">BITSP1500001</input>
+        <input type="text" xpath=".//*[@id='pw']">welcome</input>
+        <input type="click" xpath="html/body/div/div/div/form/div[3]/input" />
+		<!--  After login -->
+	    <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li/ul/li[1]/div/div[1]" />
+ 	    <input type="click" xpath=".//*[@id='regButtons']/input[1]"/>
+        <!--  Logout -->
+        <input type="click" xpath=".//*[@id='header']/div[2]/a"/>
+	</test-case>
+    <test-case name="loginToStudent21Home">
+        <input type="text" xpath=".//*[@id='ui']">BITSP1500002</input>
+        <input type="text" xpath=".//*[@id='pw']">welcome</input>
+        <input type="click" xpath="html/body/div/div/div/form/div[3]/input" />
+        <!--  After login -->
+        <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li/ul/li[1]/div/div[1]" />
+        <input type="click" xpath=".//*[@id='regButtons']/input[1]"/>
+        <!--  Logout -->
+        <input type="click" xpath=".//*[@id='header']/div[2]/a"/>
+        <!-- Login again into campus -->
+        <input type="text" xpath=".//*[@id='ui']">BITSP_PO</input>
+        <input type="text" xpath=".//*[@id='pw']">welcome</input>
+        <input type="click" xpath="html/body/div/div/div/form/div[3]/input" />
+    </test-case>
+ </test-suite>

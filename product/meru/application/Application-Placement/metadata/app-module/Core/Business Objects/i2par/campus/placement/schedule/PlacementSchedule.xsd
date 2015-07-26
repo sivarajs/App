@@ -1,0 +1,30 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.placement.schedule" xmlns="i2par.campus.placement.schedule" xmlns:r="app.domain" xmlns:c="i2par.campus" xmlns:p="i2par.campus.placement" xmlns:an="app.entity.annotation">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   	
+   	<xsd:import schemaLocation="../../CampusCommon.xsd" namespace="i2par.campus"/>
+   	<xsd:import schemaLocation="../../Campus.xsd" namespace="i2par.campus"/>
+   	<xsd:import schemaLocation="../PlacementRegistration.xsd" namespace="i2par.campus.placement"/>
+   	<xsd:import schemaLocation="../Rfp.xsd" namespace="i2par.campus.placement"/>
+   	
+	<xsd:complexType name="PlacementSchedule">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="documentId" type="xsd:string" an:unique="true"/>
+					<xsd:element ref="c:campus"/>
+					<xsd:element ref="p:rfp" minOccurs="0"/>
+					<xsd:element ref="p:placementRegistration"/>
+					<xsd:element name="mode" type="xsd:string"/>
+				    <xsd:element ref="c:state"/>
+				    <xsd:element name="dueDate" type="xsd:date" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+	
+	<xsd:element name="placementSchedule" type="PlacementSchedule"/>
+	
+</xsd:schema>

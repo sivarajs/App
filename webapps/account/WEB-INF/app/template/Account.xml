@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="app.ui.faces.component" xmlns:p="app.ui.faces.page">
+
+	<head>
+		<title>Account</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<meta http-equiv="Pragma" content="no-cache"></meta>
+		<meta http-equiv="cache-control" content="no-cache"></meta>
+		<link href="/account/st/css/app.css" type="text/css" rel="stylesheet" />
+		<script src="/account/st/js/app.js" type="text/javascript" />
+	</head>
+
+	<body>
+
+		<div class="accPanel">
+			
+				<div class="inner">
+					<c:parameter name="content"/>
+				</div>
+		</div>		
+		 <script type="text/javascript"><![CDATA[
+	      (function() {
+	        document.focusInput();
+	      })();
+	      ]]></script>		
+	</body>
+</html>

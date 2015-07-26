@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>android</groupId>
+  <artifactId>android</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>android</name>
+  <url>http://maven.apache.org</url>
+
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+  <dependencies>
+    <dependency>
+        	<groupId>com.google.android</groupId>
+        	<artifactId>android</artifactId>
+        	<version>4.1.1.4</version>
+    </dependency>
+    <dependency>
+             <groupId>andriod.support</groupId>
+             <artifactId>AndriodV4Support</artifactId>
+             <version>1.0</version>
+             <scope>system</scope>
+             <systemPath>D:/application/android/lib/android-support-v4.jar</systemPath>
+    </dependency> 
+    <dependency>
+             <groupId>andriod.support</groupId>
+             <artifactId>AndriodV7Support</artifactId>
+             <version>1.0</version>
+             <scope>system</scope>
+             <systemPath>D:/application/android/lib/android-support-v7-appcompat.jar</systemPath>
+    </dependency>  
+    <dependency>
+                 <groupId>org.json</groupId>
+                 <artifactId>JSON</artifactId>
+                 <version>1.0</version>
+                 <scope>system</scope>
+                 <systemPath>D:/dev/mydev/product/mobile/android/MCom/app/libs/json-simple-1.1.1.jar</systemPath>
+    </dependency>  
+  </dependencies>
+  <modules>
+    <module>MCom</module>
+  </modules>
+</project>

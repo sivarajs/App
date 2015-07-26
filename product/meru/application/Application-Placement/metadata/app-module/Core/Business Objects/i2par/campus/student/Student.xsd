@@ -1,0 +1,61 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus.student" xmlns="i2par.campus.student"
+	xmlns:r="app.domain" xmlns:c="i2par.campus" xmlns:an="app.entity.annotation">
+
+	<xsd:import
+		schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd"
+		namespace="app.domain" />
+	<xsd:import
+		schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd"
+		namespace="app.domain" />
+
+
+	<xsd:import schemaLocation="../CampusCommon.xsd" namespace="i2par.campus"/>
+	<xsd:import schemaLocation="../Course.xsd" namespace="i2par.campus"/>
+	<xsd:include schemaLocation="Award.xsd"/>
+	<xsd:include schemaLocation="Education.xsd"/>
+	<xsd:include schemaLocation="Elective.xsd"/>
+	<xsd:include schemaLocation="Offer.xsd"/>
+	<xsd:include schemaLocation="StudentRegistration.xsd"/>
+	
+	
+	<xsd:complexType name="Student">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string" />
+                    <xsd:element name="code" type="xsd:string"/>
+                    <xsd:element name="campusId" type="xsd:long"/>                                       
+                    <xsd:element name="email" type="xsd:string"/>
+                    <xsd:element name="iparId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element ref="course1" minOccurs="0"/>
+                    <xsd:element ref="course2" minOccurs="0"/>
+                    <xsd:element name="score" type="xsd:float" minOccurs="0"/>
+                    <xsd:element name="birthDate" type="xsd:date" minOccurs="0"/>
+                    <xsd:element ref="c:sex" minOccurs="0"/>
+                    <xsd:element name="weight" type="xsd:integer" minOccurs="0"/>
+                    <xsd:element name="height" type="xsd:integer" minOccurs="0"/>
+                    
+                    <xsd:element name="internshipDuration" type="xsd:integer" minOccurs="0"/>
+                    <xsd:element ref="internshipUnit" minOccurs="0"/>
+                    <xsd:element name="internshipCompany" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="internshipDetails" type="xsd:string" minOccurs="0"/>
+                    
+                    <xsd:element name="studentRegistration" type="StudentRegistration" minOccurs="0"/>
+                    <xsd:element name="educations" type="Education" minOccurs="0" maxOccurs="unbounded" an:mappedBy="studentId"/>                    
+                    <xsd:element name="awards" type="Award" minOccurs="0" maxOccurs="unbounded" an:mappedBy="studentId"/>
+                    <xsd:element name="electives" type="Elective" minOccurs="0" maxOccurs="unbounded" an:mappedBy="studentId"/>
+                    <xsd:element name="offers" type="Offer" minOccurs="0" maxOccurs="unbounded" an:mappedBy="studentId"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+
+
+	<xsd:element name="course1" type="c:Course" />
+	<xsd:element name="course2" type="c:Course" />
+	<xsd:element name="internshipUnit" type="r:PropertyGroup"/>
+	<xsd:element name="student" type="Student" />
+	
+</xsd:schema>

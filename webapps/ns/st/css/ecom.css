@@ -1,0 +1,216 @@
+html, body {
+	min-width: 950px;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font: 'Roboto Slab', tahoma, verdana, arial, sans-serif;
+}
+
+input, textarea, select {
+	border: 1px #cccccc solid;
+	box-shadow: none;
+}
+
+#page {
+	width: 978px;
+	margin: 0 auto;
+}
+
+#header {
+	position: relative;
+}
+
+#topBar {
+	background-color: #ffffff;
+}
+
+#topBar .right {
+	float: right;
+	text-align: right;
+}
+
+#header a {
+	color: #053f68;
+}
+
+#logo {
+	
+}
+
+.cartIconCon {
+	margin: 15px 0 10px;
+	position: relative;
+	text-align: right;
+	float: right;
+}
+
+.cartIcon {
+	top: 0;
+	width: 48px;
+	height: 43px;
+	margin: -15px 2px 0;
+	background: url("../../img/cart.png") no-repeat transparent;
+	display: inline-block;
+	margin-left: 8px;
+	vertical-align: middle;
+}
+
+.searchBoxHolder {
+	margin: 5px 0 0 20px;
+	float: left;
+	position: relative;
+}
+
+.searchBox {
+	position: relative;
+	width: 480px;
+	height: 30px;
+	padding: 2px 0;
+	box-shadow: 0 0 2px #919191 inset;
+	border-radius: 5px;
+	border: 1px solid #919191;
+}
+
+.searchBox .box {
+	position: absolute;
+	width: 385px;
+	color: #999;
+	font-size: 75%;
+	height: 20px;
+	left: 4px;
+	top: 4px;
+	padding: 5px 0 0;
+}
+
+.sprite {
+	background: url("/ecom/img/new_indiahomesprite18.png") no-repeat scroll
+		0 0 rgba(0, 0, 0, 0);
+}
+
+.searchBox .glass {
+	width: 14px;
+	background-position: -30px -237px;
+	display: inline-block;
+	height: 15px;
+	margin-left: 8px;
+	vertical-align: middle;
+}
+
+.searchBox .searchField {
+	width: 390px;
+	border: 0 none;
+	height: inherit;
+	padding: 1px 0 0 3px;
+	vertical-align: middle;
+	float: left;
+	line-height: 30px;
+}
+
+.searchBox .searchButton {
+	width: 84px;
+	color: #ffffff;
+	font-weight: bold;
+	height: inherit;
+	background: none repeat scroll 0 0 #6eae00;
+	border: 1px solid #759d2c;
+	border-radius: 5px;
+	cursor: pointer;
+	vertical-align: middle;
+	float: left;
+}
+
+#mainNav {
+	border-top: 1px #cccccc solid;
+	border-bottom: 1px #cccccc solid;
+	position:relative;
+}
+
+#mainNav .catCon {
+	float: left;
+	width: 200px;
+	background-color: #6eae00;
+	position:relative;
+}
+
+#mainNav .cat {
+	font-size: 120%;
+	color: #ffffff;
+	padding: 4px 10px 6px 10px;
+}
+
+.detPage {
+	
+}
+
+
+#mainNav .cat > span {
+    float:right;
+}
+
+#mainNav > ul {
+	list-style: none;
+	list-style-type: none;
+	float: right;
+	padding-top: 6px;
+}
+
+#mainNav>ul li {
+	display: inline;
+}
+
+.navTree {
+	display: block;
+	position:absolute;
+	z-index:10001;
+	width:100%;
+}
+
+.detPage .navTree {
+	display:none;
+}
+
+.detPage .catCon:hover .navTree {
+	display:block;
+}
+
+.productPrice {
+	
+}
+
+.imgGrid  {
+	text-align: left;
+}
+
+.buyDiv {
+	margin-top: 3px;
+}
+
+.buyDiv input {
+	text-align: center;
+}
+
+.buy {
+	cursor: pointer;
+	float: left;
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+	margin: 2px 5px;
+}
+
+.addCart {
+	background: url("/ns/st/img/db-sprite.png") no-repeat -20px -28px
+		transparent;
+}
+
+.removeCart {
+	background: url("/ns/st/img/db-sprite.png") no-repeat -38px -28px
+		transparent;
+	display: none;
+}
+
+.qty {
+	width: 40px;
+	height: 20px;
+}
+

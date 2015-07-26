@@ -1,0 +1,31 @@
+<div xmlns:c="app.ui.faces.component"  xmlns:b="app.ui.faces.block">
+   <c:entity name="BusinessPartner" filter="userId=#{session.E}"/> 
+   <b:foreach entity="BusinessPartnerAddress" filter="businessPartnerId=#{businessPartner.id}">
+   	   <div style="margin:5px 40px;position:relative">
+   	        <input type="radio" name="deliveryAddress" value="#{businessPartnerAddress.id}" style="position:absolute;top:-10;left:-25px"/>
+   	      	<p>#{businessPartnerAddress.address.address}, 
+   	      	   #{businessPartnerAddress.address.area.name}, 
+   	      	   #{businessPartnerAddress.address.city.name}
+   	      	   #{businessPartnerAddress.address.state.name}
+   	      	   #{businessPartnerAddress.address.country.name} - #{businessPartnerAddress.address.pinCode}</p>
+   	      	<hr/>
+   	   </div>   	
+   	</b:foreach>
+   
+   <div style="background-color:#ffffff;padding:10px">
+       <a href="javascript:;" onclick="checkoutAddressListener.onNewAddress()">New Address</a>
+   </div>	   
+   <div id="coNewAddressDiv" style="display:none">
+     <c:include src="/store/cart/inc/CustomerAddressInput.xhtml"/>
+   </div>
+   
+<!--    
+  <c:entityTable entity="BusinessPartner" filter="businessPartnerId=#{session.user.resourceId}" lifeCycle='none' style="margin-top:0">
+      <c:columns>
+        <c:column value="#{businessPartnerAddress.address.address}" label="Address"/>
+        <c:column value="#{businessPartnerAddress.address.area.name}" label="Area" width="100"/>
+        <c:column value="#{businessPartnerAddress.address.city.name}" label="City" width="100"/>
+        <c:column value="#{businessPartnerAddress.address.state.name}" label="State" width="100"/>
+      </c:columns>
+   </c:entityTable> 
+ --></div>

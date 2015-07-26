@@ -1,0 +1,26 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="i2par.campus" xmlns="i2par.campus" xmlns:r="app.domain" xmlns:s="app.domain.security">
+
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/AppEntity.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/module/ApplicationModule-Core/metadata/app-module/Core/Business Objects/app/domain/PropertyGroup.xsd" namespace="app.domain" />
+   <xsd:import schemaLocation="$APPLICATION_HOME/Application-Security/metadata/app-module/Core/Business Objects/app/domain/security/User.xsd" namespace="app.domain.security" />
+   	
+	<xsd:complexType name="CampusContact">
+		<xsd:complexContent>
+			<xsd:extension base="r:AppEntity">
+				<xsd:sequence>
+				    <xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="campusId" type="xsd:long"/>
+					<xsd:element ref="staffType"/>
+	                <xsd:element name="email" type="xsd:string" />
+	                <xsd:element name="phone" type="xsd:string" />
+	                <xsd:element name="roleId" type="xsd:long"/>
+                    <xsd:element name="role" type="xsd:string" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+
+	</xsd:complexType>
+
+	<xsd:element name="staffType" type="r:PropertyGroup"/>
+</xsd:schema>

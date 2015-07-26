@@ -1,0 +1,20 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Role</h1>
+   
+   <c:entityTable entity="Role">
+    <c:columns>
+       <c:column label="Name" value="#{role.name}" width="200"/>
+       <c:column label="Home" value="#{role.home}" />
+    </c:columns>
+  </c:entityTable>  
+    
+  <c:panelGroup title="Information" binds="role">
+    <c:entityForm entity="Role">
+      <c:panelGrid columns="1">
+        <c:inputText label="Name" value="#{role.name}"/>
+        <c:inputText label="Home" value="#{role.home}"/>
+      </c:panelGrid>
+    </c:entityForm>
+  </c:panelGroup>  
+</div>

@@ -1,0 +1,82 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Employer</h1>
+   
+   <c:entityTable entity="Employer">
+    <c:columns>
+       <c:column label="Code" value="#{employer.code}" width="200"/>
+       <c:column label="Name" value="#{employer.name}" />
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:tabs binds="employer"> 
+	  <c:tab title="Information">
+	    <c:entityForm entity="Employer">
+	      <c:inputHidden value="#{employer.address.id}"/>
+	      <c:inputHidden value="#{employer.state.id}" default="1003"/>	
+	      <c:panelGrid columns="1">
+	        <c:panelGridSection columns="1" title="General">
+		      	<c:inputText label="Code" value="#{employer.code}"/>
+		        <c:inputText label="Name" value="#{employer.name}"/>
+		        <c:inputText label="Domain" value="#{employer.domain}" />
+		        <c:inputText label="Industry Type" value="#{employer.industryType}" />
+			</c:panelGridSection>
+			<c:panelGridSection columns="1" title="Address"> 
+				<c:inputText label="Address1" value="#{employer.address.address}"/>
+				<c:selectOneEntityMenu value="#{employer.address.area.name}" label="Area" entity="CityArea" filter="cityId=1&amp;orderBy=name" />
+				<c:selectOneEntityMenu value="#{employer.address.city.name}" label="City" entity="City" filter="countryId=1&amp;stateId=18" default="1" />
+				<c:selectOneEntityMenu value="#{employer.address.state.name}" label="State" entity="State" filter="countryId=1" default="18" />
+				<c:selectOneEntityMenu value="#{employer.address.country.name}" label="Country" entity="Country" default="1" />
+				<c:inputText label="Pin" value="#{employer.address.pinCode}" regex="^[0-9]+$" len="6"/>
+			</c:panelGridSection>
+			
+	      </c:panelGrid>
+	    </c:entityForm>
+	  </c:tab>  
+	  
+	  <c:tab title="Contacts">
+	  
+	  	<c:entityTable entity="EmployerContact" filter="employerId=#{employer.id}" autoLoad="false" >
+		    <c:columns>
+		       <c:column label="First Name" value="#{employerContact.firstName}" width="200"/>
+		       <c:column label="Last Name" value="#{employerContact.lastName}" width="200"/>
+		       <c:column label="Email" value="#{employerContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{employerContact.phone}" width="100"/>
+		       <c:column label="Phone" value="#{employerContact.type.value}" />
+		    </c:columns>
+		</c:entityTable>  
+	    <c:panelGroup title="Information" binds="employerContact">
+		  	<c:entityForm entity="EmployerContact">
+		      <c:inputHidden value="#{employerContact.employerId}" default="#{employer.id}"/>
+		      <c:panelGrid columns="1">
+		      	<c:inputText label="First Name" value="#{employerContact.firstName}"/>
+		      	<c:inputText label="Last Name" value="#{employerContact.lastName}"/>
+		      	<c:inputText label="Email" value="#{employerContact.email}"/>
+		      	<c:inputText label="Phone" value="#{employerContact.phone}"/>
+		      	<c:selectOneEntityMenu label="Type" value="#{employerContact.type.value}" entity="PropertyGroup" filter="name=employer-contact-type"/>
+		      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>  
+	  </c:tab>
+	  
+<!-- 	  <c:tab title="Users">
+	  
+	  	<c:entityTable entity="User" filter="entityId=#{employer.id}&amp;primaryRole.id=[in]7,8" autoLoad="false">
+		    <c:columns>
+		       <c:column label="Name" value="#{user.name}" width="200"/>
+		    </c:columns>
+		</c:entityTable>  
+	    <c:panelGroup title="Information" binds="user">
+		  	<c:entityForm entity="User">
+		      <c:inputHidden value="#{user.entityId}" default="#{employer.id}"/>
+		      <c:panelGrid columns="1">
+		      	<c:inputText label="Name" value="#{user.name}"/>
+		      	<c:inputSecret label="Password" value="#{user.password}"/>
+		      	<c:selectOneEntityMenu label="Role" value="#{user.primaryRole.name}" entity="Role"/>
+		      	<c:inputText label="State" value="#{user.state}"/>
+		      </c:panelGrid>
+		    </c:entityForm>
+		</c:panelGroup>  
+	  </c:tab>	   -->
+	</c:tabs>
+</div>

@@ -1,0 +1,25 @@
+<c:template src="/WEB-INF/app/template/Customer.xml" xmlns:c="app.ui.faces.component">
+
+	<c:variable name="page.title" value="Fresh and quality products at the best price" />
+
+	<c:parameter name="content">
+		<h2>Profile</h2>
+		<c:entity name="BusinessPartner" filter="userId=#{session.E}" />
+		<c:entityForm entity="BusinessPartner" name="CustomerCheckout" entityId="#{businessPartner.id}" lifeCycle="none">
+			<c:inputHidden value="#{businessPartner.group.id}" />
+			<c:inputHidden value="#{businessPartner.userId}" />
+			<c:panelGrid>
+
+				<c:inputText label="Name" value="#{businessPartner.name}" required="true" />
+				<c:inputText label="Email" value="#{businessPartner.email}"
+					regExp="[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" />
+				<c:inputText label="Mobile" value="#{businessPartner.mobile}" required="true" length="10" regExp="^[0-9]+$" />
+				<c:inputText label="Alternate Mobile" value="#{businessPartner.altMobile}" length="10" regExp="^[0-9]+$" />
+				<c:inputText label="Landline" value="#{businessPartner.landline}" length="8" regExp="^[0-9]+$" />
+
+			</c:panelGrid>
+
+		</c:entityForm>
+
+	</c:parameter>
+</c:template>

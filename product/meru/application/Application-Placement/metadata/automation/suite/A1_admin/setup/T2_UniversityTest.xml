@@ -1,0 +1,22 @@
+<test-suite relativeUrl="admin" name="T1_UniversityTest">
+	<test-case name="selectUniversityTreeItem">
+		<!-- select Setup-->
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[1]" />
+		
+	    <input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[3]/ul/li[1]/div" /> 
+		<test name="assertTitle">
+			<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">UNIVERSITY</assert>
+		</test>
+	</test-case>
+	<test-case name="newUniversity">
+		<input type="click" xpath=".//*[@id='universityTable']/div[1]/div[1]/div[1]"/>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[1]/div[2]/div[2]/input">Birla Institute Of Technology and Science</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[2]/div[2]/input">Pilani</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[3]/div[2]/select">1</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[4]/div[2]/select">1</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[5]/div[2]/select">18</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[6]/div[2]/select">1</input>
+		<input type="text" xpath=".//*[@id='UniversityForm']/div[1]/div[2]/div[7]/div[2]/input">123456</input>
+		<input type="click" xpath=".//*[@id='universitySubmit']"/>
+	</test-case>
+</test-suite>

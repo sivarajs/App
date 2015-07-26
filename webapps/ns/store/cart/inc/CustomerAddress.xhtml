@@ -1,0 +1,24 @@
+  <c:entity columns="1" name="CustomerAddress" filter="id=#{query.id}" xmlns:c="app.ui.faces.component" >
+  
+      <span id="custAddrId" style="display:none">#{businessPartnerAddress.address.id}</span>   
+      <div id="coAddress">   
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.address}"/>
+        </p>
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.landmark}"/>
+        </p>
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.city}"/>
+        </p>
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.state}"/>
+        </p>
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.country}"/>
+        </p>
+        <p>
+          <c:outputText value="#{businessPartnerAddress.address.pin}"/>
+        </p>
+      </div>
+  </c:entity>

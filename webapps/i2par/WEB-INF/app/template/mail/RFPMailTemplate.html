@@ -1,0 +1,34 @@
+<div align="center" style="width:1005; text-align: center">
+   <h2>Request for Placements (RFP) by #{rfp.campus.alias}</h2>
+   <h2> for #{rfp.placement.rolloutStart} - #{rfp.placement.rolloutEnd} period</h2>
+   <h2>  #{rfp.campus.university.name}</h2>
+</div>
+    
+<div style="width:1005; text-align: justify">    
+<p>To #{employer.name},</p>
+
+<p>Greetings!</p>
+<p>#{rfp.campus.alias} affiliated to #{rfp.campus.university.name} is requesting #{employer.name} to conduct Placement cycle for its overall students #{rfp.totalStudents} during #{rfp.placement.rolloutStart} - #{rfp.placement.rolloutEnd}.</p>
+<p>Please click the below link in order to access the proposal to determine the salient features of the Placement Overview which includes statistical data on students, relevant academic information, CV's, offers etc.
+<p><a href="#{appPort.url}/p/employer/rfp.xhtml?eid=#{employer.id}">www.i2par.com</a></p>
+
+<p><strong>This access is valid only during the #{rfp.placement.rolloutStart} - #{rfp.placement.rolloutEnd} period.</strong></p>
+
+<p>For more information about the campus click:</p>
+<p><a href="#{rfp.campus.website}">#{rfp.campus.website}</a></p>
+</div>
+
+<br/>
+
+<div align="center" style="width:1005; text-align: center">
+  <p><strong>Wishing you with us a long term relation!</strong></p>
+</div>  
+<br/>
+<br/>
+<p>Regards,</p>
+<p>#{campusContact.name}</p>
+<p>Placement Officer</p>
+<p>#{rfp.campus.alias}</p>
+<br/>
+<p>Note: The recipient of this mail can access the above link only during the stipulated #{rfp.placement.rolloutStart} - #{rfp.placement.rolloutEnd} period.
+All the communication between the relevant parties in i2PAR is secured from any breaches of information against unauthorized parties.</p>

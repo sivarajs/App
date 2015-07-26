@@ -1,0 +1,30 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>University</h1>
+   
+   <c:entityTable entity="University">
+    <c:columns>
+       <c:column label="Name" value="#{university.name}"/>
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:panelGroup binds="university"> 
+	    <c:entityForm entity="University">
+	      <c:inputHidden value="#{university.address.id}"/>	
+	      <c:panelGrid columns="1">
+	        <c:panelGridSection columns="1" title="General">
+		      	<c:inputText label="Name" value="#{university.name}"/>
+			</c:panelGridSection>
+			<c:panelGridSection columns="1" title="Address"> 
+				<c:inputText label="Address" value="#{university.address.address}"/>
+				<c:selectOneEntityMenu value="#{university.address.area.name}" label="Area" entity="CityArea" filter="cityId=1&amp;orderBy=name" />
+				<c:selectOneEntityMenu value="#{university.address.city.name}" label="City" entity="City" filter="countryId=1&amp;stateId=18" default="1" />
+				<c:selectOneEntityMenu value="#{university.address.state.name}" label="State" entity="State" filter="countryId=1" default="18" />
+				<c:selectOneEntityMenu value="#{university.address.country.name}" label="Country" entity="Country" default="1" />
+				<c:inputText label="Pin" value="#{university.address.pinCode}" regex="^[0-9]+$" len="6"/>
+			</c:panelGridSection>
+			
+	      </c:panelGrid>
+	    </c:entityForm>
+	</c:panelGroup>
+</div>

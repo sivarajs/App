@@ -1,0 +1,58 @@
+<c:tabs xmlns:c="app.ui.faces.component" binds="rfp" id="rfpTabs">
+	  
+	  <c:tab title="Information">
+	  
+		<c:entityForm entity="Rfp">
+			<c:inputHidden value="#{rfp.campus.id}" default="#{query.campusId}"/>
+			<c:inputHidden value="#{rfp.documentId}" />
+			<c:inputHidden value="#{rfp.mode}" default="Ref"/>
+			<c:inputHidden value="#{rfp.placementRegistration.id}" id="placementRegistrationId"/>
+			<c:inputHidden value="#{rfp.state.id}" default="601"/>
+			
+			<c:panelGrid>
+				<c:selectOneEntityPopup label="Placement Registration" value="#{rfp.placementRegistration.documentId}">
+		           <c:popup title="Select Placement Registration">
+		        	 <c:entityTable entity="PlacementRegistration" filter="campusId=#{query.campusId}&amp;state.value=[in]Rolled Out,Extended" lifeCycle="none">
+					    <c:columns>
+					       <c:column label="Document Id" value="#{placementRegistration.documentId}" width="150"/>	
+					       <c:column label="Class" value="#{placementRegistration.placement.year}" width="100"/>
+					       <c:column label="Academic Start" value="#{placementRegistration.placement.academicStart}" width="150"/>
+					       <c:column label="Academic End" value="#{placementRegistration.placement.academicEnd}" width="150"/>
+					       <c:column label="Commencement" value="#{placementRegistration.placement.commencement}" width="150"/>
+					    </c:columns>
+					   </c:entityTable>
+					</c:popup>    
+		        </c:selectOneEntityPopup>
+		      	<c:inputDate label="Due Date" value="#{rfp.dueDate}"/>
+				<c:selectOneEntityMenu label="Preferred Placement" value="#{rfp.preferredPlacement.value}" entity="PropertyGroup" filter="name=preferred-placement"/>
+				<c:selectOneEntityMenu label="Placement Category" value="#{rfp.placementCategory.value}" entity="PropertyGroup" filter="name=placement-category"/>	
+				<c:inputDecimal label="Expected Pay (in lacs)" value="#{rfp.expectedPay}"/>
+				<c:inputInt label="Total Students" value="#{rfp.totalStudents}"/>
+				<c:inputInt label="Participated Students" value="#{rfp.participatedStudents}"/>
+			</c:panelGrid>
+		</c:entityForm>	
+	  </c:tab>
+	  
+	  <c:tab title="Contacts">
+	  	<c:entityTable entity="CampusContact" filter="campusId=#{query.campusId}" lifeCycle="none">
+		    <c:columns>
+		       <c:column label="Name" value="#{campusContact.name}" width="200"/>
+		       <c:column label="Email" value="#{campusContact.email}" width="200"/>
+		       <c:column label="Phone" value="#{campusContact.phone}" width="100"/>
+		    </c:columns>
+		</c:entityTable>  
+	  </c:tab>
+	  <c:tab title="Course Details">
+	  	<c:entityTable id="cpItem" entity="CoursePlacementItem" filter="ownerId=#{rfp.id}&amp;type=R" autoLoad="false" lifeCycle="none">
+		    <c:columns>
+		       <c:column label="Degree" value="#{coursePlacementItem.course.degree.value}" width="200"/>
+		       <c:column label="Discipline" value="#{coursePlacementItem.course.discipline.value}" width="200"/>
+		       <c:column label="Education Type" value="#{coursePlacementItem.course.educationType.value}" width="200"/>
+		       <c:column label="No. of Students" value="#{coursePlacementItem.studentCount}" width="200"/>
+		       <c:column label="Expected Pay" value="#{coursePlacementItem.expectedPay}" width="100"/>
+		       <c:column label="Offers Made" value="#{coursePlacementItem.offersMade}"/>
+		    </c:columns>
+		</c:entityTable>
+	 </c:tab>	
+	  
+</c:tabs>   

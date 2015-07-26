@@ -1,0 +1,15 @@
+<c:template src="/WEB-INF/template/Student.xml" xmlns:c="app.ui.faces.component" xmlns:b="app.ui.faces.block">
+
+  <c:variable name="pageTitle" value="Campus Placement"/>
+  
+  <c:parameter name="content">
+  
+   <c:variable name="studentId" value="#{session.EID}"/>
+   <c:entity name="Student" id="#{studentId}"/>
+   <c:entity name="Campus" id="#{student.campusId}"/>
+   <c:entity name="PlacementRegistration" id="#{student.studentRegistration.placementRegistrationId}"/>
+   
+   
+   
+   </c:parameter>
+ </c:template>     

@@ -1,0 +1,17 @@
+<div xmlns:c="app.ui.faces.component">
+
+    <c:entity name="BusinessPartner" filter="userId=#{session.E}"/> 
+
+	<c:entityForm id="customerProfile" entity="BusinessPartner" entityId="#{businessPartner.id}" successMsg="null" submittable="none">
+		<c:inputHidden value="#{businessPartner.group.id}" />
+		<c:inputHidden value="#{businessPartner.userId}" />
+		<c:inputHidden value="#{businessPartner.email}" />
+		<c:panelGrid>
+		    <c:outputText label="Email" value="#{businessPartner.email}"/>
+			<c:inputText label="Name" value="#{businessPartner.name}" required="true" />
+			<c:inputText label="Mobile" value="#{businessPartner.mobile}" required="true" length="10" regExp="^[0-9]+$" />
+			<c:inputText label="Alternate Mobile" value="#{businessPartner.altMobile}" length="10" regExp="^[0-9]+$" />
+			<c:inputText label="Landline" value="#{businessPartner.landline}" length="8" regExp="^[0-9]+$" />
+		</c:panelGrid>
+	</c:entityForm>
+</div>

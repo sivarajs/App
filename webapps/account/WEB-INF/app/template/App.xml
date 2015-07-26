@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="app.ui.faces.component" xmlns:p="app.ui.faces.page" >
+
+  <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  <meta http-equiv="Pragma" content="no-cache" />
+	  <meta http-equiv="Cache-Control"
+	   content="no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0" />
+	  <meta http-equiv="Expires" content="Sat, 01 Dec 2001 00:00:00 GMT" />
+	  <link href="/faces/theme/basic/css/app.css" type="text/css" rel="stylesheet" />
+      <script src="/account/st/js/app.js" type="text/javascript" />
+  </head>
+  
+  <body>
+  
+   <div id="header">
+	      <div class="appMenu">
+	        <c:entityMenu entity="AppHierarchicalEntity" filter="type=app-setup-menu" label="Application Setup" labelClass="menuLabel" onMenuItemClick="workArea.load('#{hierarchical.name}','#{hierarchical.action}')"/>
+	        |
+	        <c:entityMenu entity="AppHierarchicalEntity" filter="type=app-module-menu" label="Modules" labelClass="menuLabel" onMenuItemClick="workArea.load('#{hierarchical.name}','#{hierarchical.action}')"/>	        
+	      </div>
+	  </div>    
+	  <p:section name="workArea" id="workArea">
+	     
+	  </p:section>
+	  
+  </body>
+</html>

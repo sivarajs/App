@@ -1,0 +1,39 @@
+.accPanel {
+	width: 600px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.accPanel .inner {
+	margin-top: 50px;
+	padding: 0 20px;
+	border-radius: 5px;
+	border: 1px #cccccc solid;
+}
+
+.accPanel h2 {
+	padding-bottom: 7px;
+	border-bottom: 1px #cccccc solid;
+}
+
+.accPanel .inner>div {
+	margin: 0 100px;
+}
+
+form div {
+	padding: 10px;
+}
+
+form label {
+	width: 120px;
+	float: left;
+}
+
+form input {
+	width: 160px;
+}
+
+.formSubmitInput {
+	margin-left: 80px;
+	width: auto;
+}

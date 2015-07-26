@@ -1,0 +1,19 @@
+<div xmlns:c="app.ui.faces.component">
+  
+  <h1>Evaluation Type</h1>
+   
+   <c:entityTable entity="PropertyGroup" filter="name=evaluation-type">
+    <c:columns>
+       <c:column label="Value" value="#{propertyGroup.value}"/>
+    </c:columns>
+   </c:entityTable>  
+   
+   <c:panelGroup binds="propertyGroup"> 
+	    <c:entityForm entity="PropertyGroup">
+	      <c:inputHidden value="#{propertyGroup.name}" default="evaluation-type"/>	
+	      <c:panelGrid columns="1">
+ 	      	<c:inputText label="value" value="#{propertyGroup.value}"/>
+	      </c:panelGrid>
+	    </c:entityForm>
+	</c:panelGroup>
+</div>

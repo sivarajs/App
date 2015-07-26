@@ -1,0 +1,41 @@
+<test-suite relativeUrl="" name="T1_AdminTest">
+	<test-case name="afterPageLoad">
+		<test name="assertTitle">
+			<assert entity="Title">Account</assert>
+			<assert entity="Text" operation="Equals" xpath="html/body/div/div/h2">Login</assert>
+		</test>
+	</test-case>
+	<test-case name="afterLogin">
+		<input type="text" xpath=".//*[@id='ui']">super</input>
+		<input type="text" xpath=".//*[@id='pw']">super</input>
+		<input type="click" xpath="html/body/div/div/div/form/div[3]/input" />
+		<test name="assertAdminPage">
+		 	<assert entity="Title">I2Par Admin</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='header']/div[1]/span[1]/a">Setup</assert>
+		 	<assert entity="Attribute" name="class" operation="Equals" xpath=".//*[@id='header']/div[1]/span[1]/a">menuLabel</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='header']/div[1]/span[2]/a">Modules</assert>
+		 	<assert entity="Attribute" name="class" operation="Equals" xpath=".//*[@id='header']/div[1]/span[2]/a">menuLabel</assert>
+		</test>
+	</test-case>
+	<test-case name="clickMenuSetup">
+		<input type="click" xpath=".//*[@id='header']/div[1]/span[1]" />
+		<test name="assertSetupContent">
+		 	<assert entity="Title">I2Par Admin</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='workArea']/div/div[1]/div[1]/span">Modules</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']"></assert>
+		</test>
+	</test-case>
+	
+	<test-case name="clickSetupItem">
+		<input type="click" xpath=".//*[@id='workArea']/div/div[1]/div[2]/div/div/li[1]/ul/li[1]/div" />
+		<test name="assertSetupItemClick">
+		 	<assert entity="Title">I2Par Admin</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='workArea']/div/div[1]/div[1]/span">Modules</assert>
+		 	<assert entity="Text" operation="Equals" xpath=".//*[@id='contentArea']/div/h1">PLACEMENT CONFIGURATION</assert>
+		 	<assert entity="NodeCount" operation="Equals" xpath=".//*[@id='contentArea']">1</assert>
+		 	
+		 	<assert entity="NodeCount" operation="Equals" xpath=".//*[@id='propertyTable']/div[3]/table/tbody/tr">9</assert>
+		</test>
+	</test-case>
+	
+</test-suite>

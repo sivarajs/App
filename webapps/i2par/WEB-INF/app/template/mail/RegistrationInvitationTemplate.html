@@ -1,0 +1,24 @@
+<p>Dear #{student.name},</P>
+
+<p>You need to enroll for Registration in #{campus.name}(#{campus.alias})
+for Placement Drive during period #{placementRegistration.placement.rolloutStart} - #{placementRegistration.placement.rolloutEnd}, for Class
+#{placementRegistration.placement.year} which is commencing on #{placementRegistration.placement.commencement}.</P>
+
+<p>Your <b>USER</b> credentials to access the system are:</p>
+
+<p><b>User ID:</b> #{user.name} <br/> 
+<b>Password:</b> #{user.password}</p>
+
+<p>Please click below link in order to access the system for
+Registration, Updation of your CV and to get regular updates on the
+ongoing placement activities in the campus.</P>
+
+<p><b><a href="#{appPort.url}">Click this link</a></b></p>
+
+<p>Note: This is an unique i2par id to access the system and retain this for your future reference.
+Accessing the I2PAR system with this USERID makes you liability  for all your
+actions in the system.</p>
+
+<p><b>Clause:</b></p>
+#{placementRegistration.clause}
+<p>Wishing You All the Best</p>
